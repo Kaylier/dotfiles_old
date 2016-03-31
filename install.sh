@@ -38,6 +38,9 @@ ln -sfv ${DOTFILES_DIR}/bash/.bashrc ~/.bashrc
 
 # ~/.xinitrc
 # ~/.vimrc
+#   Vim configuration file
+ln -sfv ${DOTFILES_DIR}/vim/.vimrc ~/.vimrc
+
 # ~/.gitconfig
 # ~/.conkyrc
 # ~/.config/i3/config

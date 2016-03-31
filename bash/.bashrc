@@ -124,8 +124,8 @@ PS1+="┤\t├"
 PS1+="${color1}─"
 PS1+="${color2}─"
 PS1+="${color2}┤\u"
-SSH_CONNECTION+= # Prevent nounset warning
-if [ -n "${SSH_CONNECTION}" ]
+#SSH_CONNECTION+= # Prevent nounset warning
+if [ -n "${SSH_CONNECTION-}" ]
 then
     PS1+="\[$(tput setaf 7)\]@"
 else
@@ -229,10 +229,8 @@ shopt -s xpg_echo # echo expand backslash by default
 # }}}
 # Variables {{{
 
-DOTFILES_DIR+= # Prevent nounset warning
-
 shopt -s sourcepath # Use the value of $PATH
-[[ -d "${DOTFILES_DIR}/bin" ]] && export PATH=${PATH}:${DOTFILES_DIR}/bin
+[[ -d "${DOTFILES_DIR-}/bin" ]] && export PATH=${PATH}:${DOTFILES_DIR-}/bin
 
 # Output format of time command
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
@@ -245,8 +243,8 @@ export HISTCONTROL=ignoreboth # ignoredups & ignorespace
 export HISTTIMEFORMAT="$(echo -e $(tput setaf 7))[%d/%m %H:%M:%S]\
 $(echo -e $(tput sgr0)) "
 
-DISPLAY+= # Prevent nounset warning
-if [ -n "$DISPLAY" ]
+#DISPLAY+= # Prevent nounset warning
+if [ -n "${DISPLAY-}" ]
 then
     export BROWSER=firefox
 else
@@ -258,9 +256,9 @@ fi
 
 # template {{{
 # Create a file based on a template (detected with the suffixe)
-if [[ -d "${DOTFILES_DIR}/templates" ]]
+if [[ -d "${DOTFILES_DIR-}/templates" ]]
 then
-    local TEMPLATE_DIR=${PATH}:${DOTFILES_DIR}/templates
+    local TEMPLATE_DIR=${PATH}:${DOTFILES_DIR-}/templates
     function template()
     {
 	    [[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
