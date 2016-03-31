@@ -15,8 +15,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-ZSH_VERSION= # les scripts de git utilisent cette variable non initialisée...
-
 # Colors {{{
 
 # Enable 256 color if possible
@@ -28,77 +26,75 @@ else
 fi
 
 # Foreground Colors {{{
-darkgrey=$(tput setaf 0)
-darkred=$(tput setaf 1)
-darkgreen=$(tput setaf 2)
-darkyellow=$(tput setaf 3)
-darkblue=$(tput setaf 4)
-darkpurple=$(tput setaf 5)
-darkcyan=$(tput setaf 6)
-lightgrey=$(tput setaf 7)
-grey=$(tput setaf 8)
-red=$(tput setaf 9)
-green=$(tput setaf 10)
-yellow=$(tput setaf 11)
-blue=$(tput setaf 12)
-purple=$(tput setaf 13)
-cyan=$(tput setaf 14)
-white=$(tput setaf 15)
-black=$(tput setaf 16)
+#darkgrey=$(tput setaf 0)
+#darkred=$(tput setaf 1)
+#darkgreen=$(tput setaf 2)
+#darkyellow=$(tput setaf 3)
+#darkblue=$(tput setaf 4)
+#darkpurple=$(tput setaf 5)
+#darkcyan=$(tput setaf 6)
+#lightgrey=$(tput setaf 7)
+#grey=$(tput setaf 8)
+#red=$(tput setaf 9)
+#green=$(tput setaf 10)
+#yellow=$(tput setaf 11)
+#blue=$(tput setaf 12)
+#purple=$(tput setaf 13)
+#cyan=$(tput setaf 14)
+#white=$(tput setaf 15)
+#black=$(tput setaf 16)
 # }}}
 # Background Colors {{{
-bdarkgrey=$(tput setab 0)
-bdarkred=$(tput setab 1)
-bdarkgreen=$(tput setab 2)
-bdarkyellow=$(tput setab 3)
-bdarkblue=$(tput setab 4)
-bdarkpurple=$(tput setab 5)
-bdarkcyan=$(tput setab 6)
-blightgrey=$(tput setab 7)
-bgrey=$(tput setab 8)
-bred=$(tput setab 9)
-bgreen=$(tput setab 10)
-byellow=$(tput setab 11)
-bblue=$(tput setab 12)
-bpurple=$(tput setab 13)
-bcyan=$(tput setab 14)
-bwhite=$(tput setab 15)
+#bdarkgrey=$(tput setab 0)
+#bdarkred=$(tput setab 1)
+#bdarkgreen=$(tput setab 2)
+#bdarkyellow=$(tput setab 3)
+#bdarkblue=$(tput setab 4)
+#bdarkpurple=$(tput setab 5)
+#bdarkcyan=$(tput setab 6)
+#blightgrey=$(tput setab 7)
+#bgrey=$(tput setab 8)
+#bred=$(tput setab 9)
+#bgreen=$(tput setab 10)
+#byellow=$(tput setab 11)
+#bblue=$(tput setab 12)
+#bpurple=$(tput setab 13)
+#bcyan=$(tput setab 14)
+#bwhite=$(tput setab 15)
 # }}}
 # Modifiers {{{
-dark=$(tput dim)
-bold=$(tput bold)
-underline=$(tput smul)
-end_underline=$(tput rmul)
-rev=$(tput rev)
-reset=$(tput sgr0)
+#dark=$(tput dim)
+#bold=$(tput bold)
+#underline=$(tput smul)
+#end_underline=$(tput rmul)
+#rev=$(tput rev)
+#reset=$(tput sgr0)
 # }}}
 
 # }}}
 # Prompt {{{
 
 # Statusbar {{{
-# Old prompt
-#echo -e "${cyan}[$(date "+%d/%m/%Y %T")] ${bold}${white}Welcome to ${HOSTNAME}($HOSTTYPE)${reset}   ${purple}BASHPID=${BASHPID} PPID=${PPID}${reset}"
 echo -ne "$(tput rmam)" # disable line wrapping
 echo -ne "╭"
-echo -ne "${bold}"
+echo -ne "$(tput bold)"
 echo -ne "$(tput setab 15)$(tput setaf 0) $HOSTNAME "
 echo -ne "$(tput setab 7)[$HOSTTYPE]"
 echo -ne "$(tput setab 8)$(tput setaf 15) $USER "
 echo -ne "$(tput setab 0)$(tput setaf 6) $(date "+%d/%m/%Y %T") "
-echo -ne "${reset}$(tput setaf 8) Bash ${BASH_VERSION}"
-echo -ne "${reset}\n"
+echo -ne "$(tput sgr0)$(tput setaf 8) Bash ${BASH_VERSION}"
+echo -ne "$(tput sgr0)\n"
 echo -ne "$(tput smam)" # enable line wrapping
 # }}}
 # Banner {{{
 echo -ne "$(tput rmam)" # disable line wrapping
-if [ -e ~/.bashrc_banner ]
+if [ -r ~/.bashrc_banner ]
 then
     source ~/.bashrc_banner
 fi
 echo -ne "$(tput smam)" # enable line wrapping
 # }}}
-PROMPT_COMMAND=''
+PROMPT_COMMAND='' # command to execute before prompting PS1
 PROMPT_DIRTRIM=3 # number of trailing directory when expand \w
 # Prompt 1 {{{
 if [[ ${USER} == "root" ]]
@@ -119,16 +115,16 @@ else
     color5="\[$(tput setaf 15)\]"
     color6="\[$(tput setaf 5)\]"
 fi
-PS1="\[${reset}\]"
+PS1="\[$(tput sgr0)\]"
 PS1+='╰$(if [[ $? == 0 ]]; '
-PS1+='then echo "\[${green}\]\342\234\223"; '
-PS1+='else echo "\[${red}\]\342\234\227"; fi)'
+PS1+='then echo "\[$(tput setaf 10)\]\342\234\223"; '
+PS1+='else echo "\[$(tput setaf 9)\]\342\234\227"; fi)'
 PS1+="${color0}╓${color1}─"
 PS1+="┤\t├"
 PS1+="${color1}─"
 PS1+="${color2}─"
 PS1+="${color2}┤\u"
-SSH_CONNECTION+= # Prevent uninitialized warning
+SSH_CONNECTION+= # Prevent nounset warning
 if [ -n "${SSH_CONNECTION}" ]
 then
     PS1+="\[$(tput setaf 7)\]@"
@@ -139,7 +135,7 @@ PS1+="${color4}\h"
 PS1+="${color3}:"
 PS1+="${color5}\w "
 # Git prompt if it exists
-if [ -e /usr/share/git/completion/git-prompt.sh ] 
+if [ -r /usr/share/git/completion/git-prompt.sh ] 
 then
     source /usr/share/git/completion/git-prompt.sh
     PS1+="${color6}"'$(__git_ps1 "{%s}")'
@@ -148,15 +144,15 @@ PS1+="\n"
 PS1+="${color0}\\$"'$(if [ $(jobs | wc -l) -gt "0" ]; '
 PS1+='then echo "═╩═>"; '
 PS1+='else echo "─╨─>"; fi)'
-PS1+=" \[${reset}\]"
+PS1+=" \[$(tput sgr0)\]"
 
 # old PS1
-#PS1='\[${reset}\]\[$(tput setaf 6)\][\t]\[$(tput setaf 4)\]\u:\[$(tput setaf 15)\]\w \[$(tput setaf 5)\]$(__git_ps1 "{%s}")\n$(if [[ $? == 0 ]]; then echo "\[$(tput setaf 2)\]\342\234\223"; else echo "\[${red}\]\342\234\227"; fi)\[$(tput setaf 2)\] \$ →\[${reset}\] '
+#PS1='\[$(tput sgr0)\]\[$(tput setaf 6)\][\t]\[$(tput setaf 4)\]\u:\[$(tput setaf 15)\]\w \[$(tput setaf 5)\]$(__git_ps1 "{%s}")\n$(if [[ $? == 0 ]]; then echo "\[$(tput setaf 2)\]\342\234\223"; else echo "\[${red}\]\342\234\227"; fi)\[$(tput setaf 2)\] \$ →\[$(tput sgr0)\] '
 # }}}
 # Prompt 2,3,4 {{{
-PS2="\[$(tput setaf 2)\]╰─>\[${reset}\]"
-PS3="\[$(tput setaf 2)\]╰>\[${reset}\]"
-PS4="\[$(tput setaf 2)\]╰\[${reset}\]"
+PS2="\[$(tput setaf 2)\]╰─>\[$(tput sgr0)\]"
+PS3="\[$(tput setaf 2)\]╰>\[$(tput sgr0)\]"
+PS4="\[$(tput setaf 2)\]╰\[$(tput sgr0)\]"
 # }}}
 # Exit message {{{
 function _exit()
@@ -166,7 +162,7 @@ function _exit()
     do
         echo -en '╴'
     done;
-    echo -e "$(tput setaf 8)[Shell level: $(( $SHLVL - 1 ))]${reset}"
+    echo -e "$(tput setaf 8)[Shell level: $(( $SHLVL - 1 ))]$(tput sgr0)"
 }
 trap _exit EXIT
 # }}}
@@ -184,7 +180,7 @@ shopt -s checkjobs # Check jobs before exiting (exit again to force)
 shopt -s huponexit # Send a SIGHUP to all jobs when exiting
 # }}}
 # Security {{{
-set -o noclobber # Prevent overwritting with '>'
+#set -o noclobber # Prevent overwritting with '>'
 #set -o nounset # error on uninitialized variables
 set -o physical # Do not resolve symbolic links (with cd for example)
 #ulimit -S -c 0 # Prevent coredumps
@@ -212,7 +208,7 @@ set -o emacs # Use the emacs-style editing interface
 # }}}
 # History behaviour {{{
 
-#set -o history # Enable command history
+#set -o history # Authorize commands in history
 #set -o nolog # Prevent function def to be into the history
 
 shopt -s cmdhist # Consider multilines commands as one in the history
@@ -227,26 +223,29 @@ shopt -s histverify # Allow further modification
 
 shopt -s interactive_comments # Allow comments in terminal (with '#')
 shopt -u nocasematch # Case insensitive match in 'case' statement
-shopt -s shift_verbose # Print an error message when the shift is over
+shopt -s shift_verbose # Print an error message when the argument shift is over
 shopt -s xpg_echo # echo expand backslash by default
 
 # }}}
 # Variables {{{
 
-shopt -s sourcepath # Use the value of $PATH
-export PATH=$PATH:~/.comptes
+DOTFILES_DIR+= # Prevent nounset warning
 
+shopt -s sourcepath # Use the value of $PATH
+[[ -d "${DOTFILES_DIR}/bin" ]] && export PATH=${PATH}:${DOTFILES_DIR}/bin
+
+# Output format of time command
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 
-#export HISTFILE
-#export HISTFILESIZE
-#export HISTSIZE
-export HISTIGNORE="&:bg:fg:ll:h:echo"
-export HISTCONTROL=ignoreboth
+#export HISTFILE=~/.bash_history
+#export HISTFILESIZE=500
+export HISTSIZE=500
+export HISTIGNORE="&:bg:fg:ll:h:echo" # Commands to ignore
+export HISTCONTROL=ignoreboth # ignoredups & ignorespace
 export HISTTIMEFORMAT="$(echo -e $(tput setaf 7))[%d/%m %H:%M:%S]\
-$(echo -e ${reset}) "
+$(echo -e $(tput sgr0)) "
 
-DISPLAY+= # Prevent uninitialized warning
+DISPLAY+= # Prevent nounset warning
 if [ -n "$DISPLAY" ]
 then
     export BROWSER=firefox
@@ -259,38 +258,41 @@ fi
 
 # template {{{
 # Create a file based on a template (detected with the suffixe)
-TEMPLATE_DIR=~/documents/modeles
-function template()
-{
-	[[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
+if [[ -d "${DOTFILES_DIR}/templates" ]]
+then
+    local TEMPLATE_DIR=${PATH}:${DOTFILES_DIR}/templates
+    function template()
+    {
+	    [[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
 
-	if [[ -e $1 ]]
-    then
-        echo "The file already exists, it will be opened"
-        echo -n "Press ENTER to resume"
-        read
-	    ${EDITOR} "$1";
-	else
-        TEMPLATE_FILE=$(ls ${TEMPLATE_DIR} | grep -E "*.${1/*.}$")
-        if [[ -z ${TEMPLATE_FILE} ]]
+	    if [[ -e $1 ]]
         then
-            echo "No template found in '${TEMPLATE_DIR}' with the extension '${1/*.}'"
+            echo "The file already exists, it will be opened"
             echo -n "Press ENTER to resume"
             read
-        else
-            if [ ${EDITOR} == "vim" ]
+	        ${EDITOR} "$1";
+	    else
+            local TEMPLATE_FILE=$(ls ${TEMPLATE_DIR} | grep -E "*.${1/*.}$")
+            if [[ -z ${TEMPLATE_FILE} ]]
             then
-                # Pour vim, on laisse le soins à l'utilisateur 
-                # de créer le fichier en enregistrant via vim
-                ${EDITOR} -c ":0read ! cat \"${TEMPLATE_DIR}/${TEMPLATE_FILE}\"" "$1"
+                echo "No template found in '${TEMPLATE_DIR}' with the extension '${1/*.}'"
+                echo -n "Press ENTER to resume"
+                read
             else
-                cp "${TEMPLATE_DIR}/${TEMPLATE_FILE}" "$1"
-                ${EDITOR} "$1"
+                if [ ${EDITOR} == "vim" ]
+                then
+                    # Pour vim, on laisse le soins à l'utilisateur 
+                    # de créer le fichier en enregistrant via vim
+                    ${EDITOR} -c ":0read ! cat \"${TEMPLATE_DIR}/${TEMPLATE_FILE}\"" "$1"
+                else
+                    cp "${TEMPLATE_DIR}/${TEMPLATE_FILE}" "$1"
+                    ${EDITOR} "$1"
+                fi
             fi
-        fi
-	fi;
-	return 0;
-}
+	    fi;
+	    return 0;
+    }
+fi
 # }}}
 # compile {{{
 # Compile a file and execute the result, before deleting it
@@ -299,15 +301,15 @@ function compile()
 	[[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
 	[[ -r $1 ]] || { printf "File %s is not readable" "$1" >&2; return 1; }
 
-	local output_path=${TMPDIR:-/tmp}/${1##*/};
+	local OUTPUT_PATH=${TMPDIR:-/tmp}/${1##*/};
 	case $1 in
-		*.cpp)	g++ "$1" -o "$output_path" && "$output_path" ;;
-		*.c)	gcc "$1" -o "$output_path" && "$output_path" ;;
-        *.adb)  gnatmake "$1" -o "$output_path" && "$output_path" ;;
+		*.cpp)	g++ "$1" -o "$OUTPUT_PATH" && "$OUTPUT_PATH" ;;
+		*.c)	gcc "$1" -o "$OUTPUT_PATH" && "$OUTPUT_PATH" ;;
+        *.adb)  gnatmake "$1" -o "$OUTPUT_PATH" && "$OUTPUT_PATH" ;;
 		*)	    echo "$1 : unrecognized file extension" >&2
 			continue;;
 	esac
-	[[ -e $output_path ]] && { rm "$output_path";}
+	[[ -e $OUTPUT_PATH ]] && { rm "$OUTPUT_PATH";}
 
 }
 # }}}
@@ -339,7 +341,7 @@ function extract()
             *.zip)       unzip $1        ;;
             *.Z)         uncompress $1   ;;
             *.7z)        7z x $1         ;;
-            *)           echo "'$1' cannot be extracted via >extract<" ;;
+            *)           echo "'$1' cannot be extracted via 'extract'" ;;
         esac
     else
         echo "'$1' is not a valid file!"
@@ -362,6 +364,7 @@ function swap()
 }
 # }}}
 # repeat {{{
+# 'repeat n command' repeat the command n times
 function repeat()
 {
     local i max
@@ -374,6 +377,7 @@ function repeat()
 # ask {{{
 function ask()
 {
+    local ans
     echo -n "$@" '[y/N] ' ; read ans
     case "$ans" in
         y*|Y*) return 0 ;;
@@ -382,7 +386,7 @@ function ask()
 }
 # }}}
 # maybe {{{
-# print randomly 'y' or 'n'
+# after yes and no, maybe: print randomly 'y' or 'n'
 function maybe()
 {
     while true
@@ -401,15 +405,15 @@ function maybe()
 # Get current host related info.
 function _info()
 {
-    echo -e "\nYou are logged on ${red}$HOSTNAME"
-    echo -e "\n${red}Additionnal information:${reset} " ; uname -a
-    echo -e "\n${red}Users logged on:${reset} " ; w -hs |
+    echo -e "\nYou are logged on $(tput setaf 9)$HOSTNAME"
+    echo -e "\n$(tput setaf 9)Additionnal information:$(tput sgr0) " ; uname -a
+    echo -e "\n$(tput setaf 9)Users logged on:$(tput sgr0) " ; w -hs |
              cut -d " " -f1 | sort | uniq
-    echo -e "\n${red}Current date :${reset} " ; date
-    echo -e "\n${red}Machine stats :${reset} " ; uptime
-    echo -e "\n${red}Memory stats :${reset} " ; free
-    echo -e "\n${red}Diskspace :${reset} " ; df / $HOME
-    echo -e "\n${red}Open connections :${reset} "; netstat -pan --inet;
+    echo -e "\n$(tput setaf 9)Current date :$(tput sgr0) " ; date
+    echo -e "\n$(tput setaf 9)Machine stats :$(tput sgr0) " ; uptime
+    echo -e "\n$(tput setaf 9)Memory stats :$(tput sgr0) " ; free
+    echo -e "\n$(tput setaf 9)Diskspace :$(tput sgr0) " ; df / $HOME
+    echo -e "\n$(tput setaf 9)Open connections :$(tput sgr0) "; netstat -pan --inet;
     echo
 }
 # }}}
@@ -487,11 +491,11 @@ complete -A file -o default -X '!*.tex'        tex latex
 # }}}
 # Multimedia {{{
 complete -A file -o default -X \
-    '!*.@(mp[23]|MP[23]|ogg|OGG|wav|WAV|pls|\
+    '!*.@(mp[234]|MP[234]|ogg|OGG|wav|WAV|pls|\
     m3u|xm|mod|s[3t]m|it|mtm|ult|flac|\
     mp?(e)g|MP?(E)G|wma|avi|AVI|\
     asf|vob|VOB|bin|dat|vcd|ps|pes|fli|viv|rm|ram|yuv|mov|MOV|qt|\
-    QT|wmv|mp3|MP3|ogg|OGG|ogm|OGM|mp4|MP4|wav|WAV|asx|ASX)' vlc
+    QT|wmv|ogm|OGM|asx|ASX)' vlc
 # }}}
 # Scripts {{{
 complete -A file -o default -X '!*.@(py|PY)' python
@@ -567,7 +571,6 @@ alias grep='grep -TE --color=auto'
 alias jobs='jobs -l'
 alias less='less -iNMz-10'
 alias ls='ls -bhF --color=auto'
-alias lumos='sudo lumos'
 alias mkdir='mkdir -pv'
 alias peerflix='peerflix --vlc'
 alias ping='ping -Abc 8 -D'
@@ -602,7 +605,7 @@ alias lg='ll | grep'
 alias lsd='command ls -hd */'
 alias meminfo='free -hlt'
 alias mounted='mount | column -t'
-alias no='yes no'
+alias no='yes n'
 alias path='echo -e ${PATH//:/\\n}'
 alias timestamp='date "+%s"'
 
