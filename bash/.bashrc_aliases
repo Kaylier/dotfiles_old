@@ -1,0 +1,93 @@
+# Modified commands {{{
+
+alias df='df -Th'
+alias du='du -ch'
+alias grep='grep -TE --color=auto'
+alias jobs='jobs -l'
+alias less='less -iNMz-10'
+alias ls='ls -bhF --color=auto'
+alias mkdir='mkdir -pv'
+alias peerflix='peerflix --vlc'
+alias ping='ping -Abc 8 -D'
+alias pushd='pushd . > /dev/null'
+alias popd='popd > /dev/null'
+alias sudo='sudo '
+#alias sudo='sudo -E'
+alias vpnc='sudo vpnc --no-detach'
+
+# }}}
+# Reattributed commands {{{
+
+alias clear='echo -ne "\033c"'
+[ "$(type -t _info)" == "function" ] && alias info='_info'
+alias vi='vim'
+alias view='vim -R'
+
+function evince() { command evince "$@" & }
+function firefox() { command firefox "$@" & }
+
+# }}}
+# New commands {{{
+
+BACKASABLE_DIR=~/.backasable
+[ -d "$BACKASABLE_DIR" ] && alias backasable='cd ${BACKASABLE_DIR}'
+alias git-log='git log --graph --oneline'
+alias h='history'
+alias j='jobs -l'
+alias ll='ls -l'
+alias lr='ll -R'
+alias la='ll -A'
+alias lg='ll | grep'
+alias lsd='command ls -hd */'
+alias meminfo='free -hlt'
+alias mounted='mount | column -t'
+alias no='yes n'
+alias path='echo -e ${PATH//:/\\n}'
+alias timestamp='date "+%s"'
+
+function lcd() { cd $@ && ls ; }
+function fe() { find . -type f -iname '*'"${1:-}"'*' -exec ${2:-file} {} \; ; }
+function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
+function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ; }
+
+if [ $UID -ne 0 ] # if banal user
+then
+    alias halt='sudo systemctl halt'
+    alias poweroff='sudo systemctl poweroff'
+    alias reboot='sudo systemctl reboot'
+
+    alias pacupg='sudo pacman -Syu'
+    alias pacrmorph="pacman -Qtdq > /dev/null && sudo pacman -Rns \$(pacman -Qtdq | sed -e ':a;N;$!ba;s/\n/ /g')"
+else
+    alias pacupd='pacman -Su'
+    alias pacupg='pacman -Syu'
+    alias pacrmorph="pacman -Qtdq > /dev/null && pacman -Rns \$(pacman -Qtdq | sed -e ':a;N;$!ba;s/\n/ /g')"
+fi
+
+# }}}
+# Safety aliases {{{
+
+alias chgrp='chgrp --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chown='chown --preserve-root'
+alias cp='cp -i'
+alias emacs='vim'
+alias ln='ln -i'
+alias mv='mv -i'
+alias rm='rm -Iv --one-file-system --preserve-root'
+alias ssh='ssh -A'
+
+# }}}
+# Error corrector {{{
+
+alias :q='exit'
+alias pull='git pull'
+alias push='git push'
+alias commit='git commit'
+alias fetch='git fetch'
+alias status='git status'
+
+# }}} 
+
+# vim:filetype=sh:syntax=sh
+# vim:foldmethod=marker:foldlevel=0

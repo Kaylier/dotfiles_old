@@ -1,0 +1,144 @@
+# Parameters {{{
+shopt -s autocd # Execute directory names as if it's the argument of cd
+shopt -s cdable_vars # If cd is called with a variable, the content is used
+shopt -s cdspell # Correct minor errors
+#shopt -s complete_fullquote # Quote all metacharacters when completing
+#shopt -s direxpand # Expand wildcards on completion if possible
+shopt -s dirspell #  Try to correct minor errors
+shopt -u dotglob # Include hidden files in expansion
+shopt -s expand_aliases # Expand aliases
+shopt -s extglob # Extended pattern matching features
+shopt -s extquote #  Enclose in double quote when $"string"
+shopt -s failglob # Result in an error when no match
+shopt -s force_fignore # Ignore $FIGNORE suffixes in completion
+export FIGNORE='.o:.ali:~'
+#shopt -s globasciiranges # Ranges with letters are set in the ASCII space
+shopt -s globstar # Pattern '**' match all files
+shopt -s hostcomplete # Complete after a @
+shopt -s no_empty_cmd_completion # Doesn't try to complete empty line
+shopt -s nocaseglob # Case insensitive expension
+shopt -s nullglob # When no files matches, expand to a null string
+shopt -s progcomp # Enable programmable completion facilities
+shopt -s promptvars # prompt strings undergo everything else
+# }}}
+# Specific purposes {{{
+complete -A hostname    rsh rcp telnet rlogin ftp ping disk
+complete -A user        su groups w
+
+complete -A alias       alias unalias
+complete -A variable    export local readonly unset
+complete -A setopt      set
+complete -A export      printenv
+complete -A enabled     builtin
+complete -A command     sudo man type which watch repeat
+complete -A function    function
+
+complete -A helptopic   help
+complete -A shopt       shopt
+
+complete -A stopped -P '%' bg
+complete -A job -P '%'  fg jobs disown
+
+complete -A directory   mkdir rmdir pushd
+complete -A directory   -o default cd
+
+# Git completion
+if [ -e /etc/bash_completion.d/git ]
+then
+    source /etc/bash_completion.d/git
+fi
+# }}}
+# Compression {{{
+complete -A file -o default -X '*.+(zip|ZIP)'       zip
+complete -A file -o default -X '!*.+(zip|ZIP)'      unzip
+complete -A file -o default -X '*.+(z|Z)'           compress
+complete -A file -o default -X '!*.+(z|Z)'          uncompress
+complete -A file -o default -X '*.+(gz|GZ)'         gzip
+complete -A file -o default -X '!*.+(gz|GZ)'        gunzip
+complete -A file -o default -X '*.+(bz2|BZ2)'       bzip2
+complete -A file -o default -X '!*.+(bz2|BZ2)'      bunzip2
+complete -A file -o default -X '!*.+(tgz|tar.gz|tbz2|tar.bz2)'   tar
+complete -A file -o default -X \
+    '!*.+(tar.bz2|tar.gz|bz2|rar|gz|tar|tbz2|tgz|zip|Z|7z)' extract
+# }}}
+# Documents {{{
+complete -A file -o default -X '!*.+(ps|PS)'   gs ps2pdf ps2ascii
+complete -A file -o default -X '!*.+(pdf|PDF)' evince pdf2ps
+complete -A file -o default -X '!*.texi*'      makeinfo texi2dvi texi2pdf
+complete -A file -o default -X '!*.tex'        tex latex
+# }}}
+# Multimedia {{{
+complete -A file -o default -X \
+    '!*.@(mp[234]|MP[234]|ogg|OGG|wav|WAV|pls|\
+    m3u|xm|mod|s[3t]m|it|mtm|ult|flac|\
+    mp?(e)g|MP?(E)G|wma|avi|AVI|\
+    asf|vob|VOB|bin|dat|vcd|ps|pes|fli|viv|rm|ram|yuv|mov|MOV|qt|\
+    QT|wmv|ogm|OGM|asx|ASX)' vlc
+# }}}
+# Scripts {{{
+complete -A file -o default -X '!*.@(py|PY)' python
+complete -A file -o default -X '!*.@(sh|SH)' bash
+# }}}
+# Make autocomplete {{{
+_make()
+{
+    local mdef makef makef_dir="." makef_inc gcmd cur prev i;
+    COMPREPLY=();
+    cur=${COMP_WORDS[COMP_CWORD]};
+    prev=${COMP_WORDS[COMP_CWORD-1]};
+    case "$prev" in
+        -*f)
+            COMPREPLY=($(compgen -f $cur ));
+            return 0
+            ;;
+    esac;
+    case "$cur" in
+        -*)
+            COMPREPLY=($(_get_longopts $1 $cur ));
+            return 0
+            ;;
+    esac;
+
+    # ... make reads
+    #          GNUmakefile,
+    #     then makefile
+    #     then Makefile ...
+    if [ -f ${makef_dir}/GNUmakefile ]; then
+        makef=${makef_dir}/GNUmakefile
+    elif [ -f ${makef_dir}/makefile ]; then
+        makef=${makef_dir}/makefile
+    elif [ -f ${makef_dir}/Makefile ]; then
+        makef=${makef_dir}/Makefile
+    else
+        makef=${makef_dir}/*.mk         # Local convention.
+    fi
+
+    #  Before we scan for targets, see if a Makefile name was
+    #+ specified with -f.
+    for (( i=0; i < ${#COMP_WORDS[@]}; i++ )); do
+        if [[ ${COMP_WORDS[i]} == -f ]]; then
+            # eval for tilde expansion
+            eval makef=${COMP_WORDS[i+1]}
+            break
+        fi
+    done
+    [ ! -f $makef ] && return 0
+
+    # Deal with included Makefiles.
+    makef_inc=$( grep -E '^-?include' $makef | sed -e "s,^.* ,"$makef_dir"/," )
+    for file in $makef_inc; do
+        [ -f $file ] && makef="$makef $file"
+    done
+
+    #  If we have a partial word to complete, restrict completions
+    #+ to matches of that word.
+    if [ -n "$cur" ]; then gcmd='grep "^$cur"' ; else gcmd=cat ; fi
+
+    COMPREPLY=( $( awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}' $makef 2>/dev/null | eval $gcmd  ))
+
+}
+complete -F _make -X '+($*|*.[cho])' make gmake pmake
+# }}}
+
+# vim:filetype=sh:syntax=sh
+# vim:foldmethod=marker:foldlevel=0

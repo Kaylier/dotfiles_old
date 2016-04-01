@@ -1,0 +1,94 @@
+# Statusbar {{{
+echo -ne "$(tput rmam)" # disable line wrapping
+echo -ne "╭"
+echo -ne "$(tput bold)"
+echo -ne "$(tput setab 15)$(tput setaf 0) $HOSTNAME "
+echo -ne "$(tput setab 7)[$HOSTTYPE]"
+echo -ne "$(tput setab 8)$(tput setaf 15) $USER "
+echo -ne "$(tput setab 0)$(tput setaf 6) $(date "+%d/%m/%Y %T") "
+echo -ne "$(tput sgr0)$(tput setaf 8) Bash ${BASH_VERSION}"
+echo -ne "$(tput sgr0)\n"
+echo -ne "$(tput smam)" # enable line wrapping
+# }}}
+# Banner {{{
+echo -ne "$(tput rmam)" # disable line wrapping
+if [ -r ~/.bashrc_banner ]
+then
+    source ~/.bashrc_banner
+fi
+echo -ne "$(tput smam)" # enable line wrapping
+# }}}
+PROMPT_COMMAND='' # command to execute before prompting PS1
+PROMPT_DIRTRIM=3 # number of trailing directory when expand \w
+# Prompt 1 {{{
+if [[ ${USER} == "root" ]]
+then
+    color0="\[$(tput setaf 1)\]"
+    color1="\[$(tput setaf 9)\]"
+    color2="\[$(tput setaf 3)\]"
+    color3="\[$(tput setaf 8)\]"
+    color4="\[$(tput setaf 11)\]"
+    color5="\[$(tput setaf 15)\]"
+    color6="\[$(tput setaf 5)\]"
+else
+    color0="\[$(tput setaf 2)\]"
+    color1="\[$(tput setaf 6)\]"
+    color2="\[$(tput setaf 4)\]"
+    color3="\[$(tput setaf 8)\]"
+    color4="\[$(tput setaf 12)\]"
+    color5="\[$(tput setaf 15)\]"
+    color6="\[$(tput setaf 5)\]"
+fi
+PS1="\[$(tput sgr0)\]"
+PS1+='╰$(if [[ $? == 0 ]]; '
+PS1+='then echo "\[$(tput setaf 10)\]\342\234\223"; '
+PS1+='else echo "\[$(tput setaf 9)\]\342\234\227"; fi)'
+PS1+="${color0}╓${color1}─"
+PS1+="┤\t├"
+PS1+="${color1}─"
+PS1+="${color2}─"
+PS1+="${color2}┤\u"
+if [ -n "${SSH_CONNECTION-}" ]
+then
+    PS1+="\[$(tput setaf 7)\]@"
+else
+    PS1+="\[$(tput setaf 8)\]@"
+fi
+PS1+="${color4}\h"
+PS1+="${color3}:"
+PS1+="${color5}\w "
+# Git prompt if it exists
+if [ -r /usr/share/git/completion/git-prompt.sh ] 
+then
+    source /usr/share/git/completion/git-prompt.sh
+    PS1+="${color6}"'$(__git_ps1 "{%s}")'
+fi
+PS1+="\n"
+PS1+="${color0}\\$"'$(if [ $(jobs | wc -l) -gt "0" ]; '
+PS1+='then echo "═╩═>"; '
+PS1+='else echo "─╨─>"; fi)'
+PS1+=" \[$(tput sgr0)\]"
+
+# old PS1
+#PS1='\[$(tput sgr0)\]\[$(tput setaf 6)\][\t]\[$(tput setaf 4)\]\u:\[$(tput setaf 15)\]\w \[$(tput setaf 5)\]$(__git_ps1 "{%s}")\n$(if [[ $? == 0 ]]; then echo "\[$(tput setaf 2)\]\342\234\223"; else echo "\[${red}\]\342\234\227"; fi)\[$(tput setaf 2)\] \$ →\[$(tput sgr0)\] '
+# }}}
+# Prompt 2,3,4 {{{
+PS2="\[$(tput setaf 2)\]╰─>\[$(tput sgr0)\]"
+PS3="\[$(tput setaf 2)\]╰>\[$(tput sgr0)\]"
+PS4="\[$(tput setaf 2)\]╰\[$(tput sgr0)\]"
+# }}}
+# Exit message {{{
+function _exit()
+{
+    echo -en '╷'
+    for i in $(seq $(( $SHLVL - 2 )))
+    do
+        echo -en '╴'
+    done;
+    echo -e "$(tput setaf 8)[Shell level: $(( $SHLVL - 1 ))]$(tput sgr0)"
+}
+trap _exit EXIT
+# }}}
+
+# vim:filetype=sh:syntax=sh
+# vim:foldmethod=marker:foldlevel=0

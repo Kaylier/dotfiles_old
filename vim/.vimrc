@@ -169,7 +169,7 @@ set remap " Allow recursive mappings
 nnoremap <Enter> i<Enter>
 " Escape with kj
 inoremap kj     <Esc>
-"
+
 " Increment (<C-a> is used for an other purpose)
 nnoremap <C-w>  <C-a>
 " Go to the beginning of the line
