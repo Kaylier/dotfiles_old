@@ -13,8 +13,6 @@ else
 fi
 
 
-# Bash {{{
-
 # /etc/profile
 #   The systemwide initialization file, executed for login shells
 #ln -sfv ${DOTFILES_DIR}/bash/profile /etc/profile
@@ -43,18 +41,17 @@ ln -sfv ${DOTFILES_DIR}/bash/.bashrc_completion ~/.bashrc_completion
 #   The individual login shell cleanup file, executed when a login shell exits
 ln -sfv ${DOTFILES_DIR}/bash/.bash_logout ~/.bash_logout
 
-# }}}
-
 # ~/.inputrc
 #   Individual readline initialization file
 #ln -sfv ${DOTFILES_DIR}/bash/.inputrc ~/.input
 
-# ~/.xinitrc
 # ~/.vimrc
 #   Vim configuration file
 ln -sfv ${DOTFILES_DIR}/vim/.vimrc ~/.vimrc
 
 # ~/.gitconfig
+ln -sfv ${DOTFILES_DIR}/git/.gitconfig ~/.gitconfig
+
 # ~/.conkyrc
 # ~/.config/i3/config
 # ~/.config/i3/conky-i3bar.sh

@@ -31,7 +31,6 @@ function firefox() { command firefox "$@" & }
 
 BACKASABLE_DIR=~/.backasable
 [ -d "$BACKASABLE_DIR" ] && alias backasable='cd ${BACKASABLE_DIR}'
-alias git-log='git log --graph --oneline'
 alias h='history'
 alias j='jobs -l'
 alias ll='ls -l'
@@ -85,7 +84,7 @@ alias pull='git pull'
 alias push='git push'
 alias commit='git commit'
 alias fetch='git fetch'
-alias status='git status'
+alias status='git s'
 
 # }}} 
 
