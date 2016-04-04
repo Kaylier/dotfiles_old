@@ -83,7 +83,7 @@ alias :q='exit'
 alias pull='git pull'
 alias push='git push'
 alias commit='git commit'
-alias fetch='git fetch'
+alias fetch='git fetch; git status'
 alias status='git s'
 
 # }}} 

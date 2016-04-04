@@ -221,7 +221,7 @@ highlight User4 cterm=bold ctermbg=12 ctermfg=15
 highlight User5 cterm=bold ctermbg=4 ctermfg=15
 highlight User6 cterm=bold ctermbg=16 ctermfg=15
 highlight User7 cterm=bold ctermbg=none ctermfg=15
-highlight User8 cterm=bold ctermbg=16 ctermfg=15
+highlight User8 cterm=bold ctermbg=3 ctermfg=16
 highlight User9 cterm=bold ctermbg=3 ctermfg=9
 
 set laststatus=2
@@ -229,6 +229,7 @@ set statusline=
 set statusline+=%9*%h                               " Help flag
 set statusline+=%1*%m                               " Modified flag
 set statusline+=%1*%r                               " Readonly flag
+set statusline+=%8*%{strlen(&key)?'[X]':''}         " Encrypted flag
 set statusline+=%2*\ %t\                            " File name (tail)
 set statusline+=%3*%y                               " File type
 set statusline+=%4*\ %{strlen(&fenc)?&fenc:&enc}\   " Encoding 
