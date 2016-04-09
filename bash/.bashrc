@@ -87,6 +87,8 @@ shopt -s xpg_echo # echo expand backslash by default
 # }}}
 # Variables {{{
 
+export DOTFILES_DIR=~/.dotfiles
+
 shopt -s sourcepath # Use the value of $PATH
 [[ -d "${DOTFILES_DIR-}/bin" ]] && export PATH=${PATH}:${DOTFILES_DIR-}/bin
 

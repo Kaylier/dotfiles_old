@@ -2,7 +2,7 @@
 # Create a file based on a template (detected with the suffixe)
 if [[ -d "${DOTFILES_DIR-}/templates" ]]
 then
-    local TEMPLATE_DIR=${PATH}:${DOTFILES_DIR-}/templates
+    TEMPLATE_DIR=${DOTFILES_DIR-}/templates
     function template()
     {
 	    [[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
