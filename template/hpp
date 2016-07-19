@@ -1,0 +1,20 @@
+#ifndef /*TTODO*/_HPP
+#define /*TTODO*/_HPP
+
+class /*TODO*/
+{
+public:
+    /*TODO*/();
+    /*TODO*/(const /*TODO*/& x);
+    ~/*TODO*/();
+
+    /*TODO*/& operator=(const /*TODO*/& x);
+    
+protected:
+    
+
+private:
+    
+};
+
+#endif // /*TTODO*/_HPP

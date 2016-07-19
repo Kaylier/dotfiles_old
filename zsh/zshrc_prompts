@@ -1,0 +1,155 @@
+# Context {{{
+
+# login shell or not, (login shells have problems with unicodes and colors)
+if [[ $- == *l* ]]
+then
+    local left='['
+    local right=']'
+    local hyph='-'
+    local junc='|'
+    local up='+'
+    local down='+'
+    local ret='>'
+    local ssh='(s)'
+    local color0='%F{0}'
+    local color1='%F{1}'
+    local color2='%F{2}'
+    local color3='%F{3}'
+    local color4='%F{4}'
+    local color5='%F{3}'
+    local color6='%F{6}'
+    local color7='%F{7}'
+    local color8='%F{7}'
+    local color9='%F{1}'
+    local color10='%F{2}'
+    local color11='%F{3}'
+    local color12='%F{4}'
+    local color13='%F{3}'
+    local color14='%F{6}'
+    local color15='%F{7}'
+else
+    local left='⎨'
+    local right='├'
+    local hyph='─'
+    local junc='╟'
+    local up='╓'
+    local down='╨'
+    local ret='↪'
+    local ssh='ⓢ'
+    local color0='%F{0}'
+    local color1='%F{1}'
+    local color2='%F{2}'
+    local color3='%F{3}'
+    local color4='%F{4}'
+    local color5='%F{5}'
+    local color6='%F{6}'
+    local color7='%F{7}'
+    local color8='%F{8}'
+    local color9='%F{9}'
+    local color10='%F{10}'
+    local color11='%F{11}'
+    local color12='%F{12}'
+    local color13='%F{13}'
+    local color14='%F{14}'
+    local color15='%F{15}'
+fi
+
+if [[ ${UID} -eq 0 ]]
+then
+    local uid="${color1}"
+else
+    local uid="${color2}"
+fi
+
+if [[ -n "${SSH_CONNECTION-}" ]]
+then
+    local ssh_status="${color7}${ssh}%f"
+else
+    local ssh_status="${color8}@%f"
+fi
+
+# }}}
+# Status blocks {{{
+
+local return_status="%(?..${color1}${hyph}${left}${ret}%?${right}${hyph}%f)"
+
+local shell_status="${color4}${hyph}%1(j.${left}%j${right}.)${left}%*${right}${hyph}%f"
+
+local user_status="${color12}${hyph}${left}%n${ssh_status}${color6}%M${color8}:${color7}%3~%f"
+
+# }}}
+# Lines {{{
+
+info_line () {
+    echo "${uid}${up}${return_status}${shell_status}${user_status}%f"
+}
+
+git_line () {
+    local dir=$(git rev-parse --git-dir 2>/dev/null)
+    if [[ -n "$dir" ]]
+    then
+        local branch=$(git rev-parse --abbrev-ref --symbolic-full-name @ 2>/dev/null)
+        local remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
+        local ahead=$(git rev-list @{u}..@ 2>/dev/null | wc -l)
+        local behind=$(git rev-list @..@{u} 2>/dev/null | wc -l)
+        local modified=$(git diff --quiet 2>/dev/null)
+        local staged=$(git diff --cached --quiet 2>/dev/null)
+        local stash=$(git stash list 2>/dev/null | wc -l)
+
+        echo -n "${uid}${junc}${color11}${left}${remote_branch}${right}"
+
+        (( $ahead + $behind )) && echo -n "${color3}${left}"
+        (( $ahead )) && echo -n "${color10}+${ahead}"
+        (( $ahead * $behind )) && echo -n "${color8}/"
+        (( $behind )) && echo -n "${color9}-${behind}"
+        (( $ahead + $behind )) && echo -n "${color3}${right}${hyph}"
+
+        echo -n "${color13}${hyph}${left}${branch}${right}${hyph}${color5}"
+
+        (( $staged )) && echo -n "[staged]"
+
+        (( $modified )) && echo -n "[modified]"
+
+        (( $stash )) && echo -n " ($stash stashed)"
+
+        echo "%f"
+    fi
+}
+
+prompt_line () {
+    echo "${uid}${down}${hyph}> %f"
+}
+
+# }}}
+# Finally the prompt {{{
+
+prompt_ps1 () {
+    info_line
+    git_line
+    prompt_line
+}
+PS1='$(prompt_ps1)'
+
+prompt_rps1 () {
+    #local nb_process=$(ps -e | wc -l)
+    #local nb_thread=$(ps -eL | wc -l)
+    #local nb_process_user=$(ps -u ${UID} | wc -l)
+    #local nb_thread_user=$(ps -Lu ${UID} | wc -l)
+
+    #echo "${color8}${nb_process_user}(${nb_thread_user})/${nb_process}($nb_thread) %S%L%s%f"
+
+    echo "${color8}!%h %S%L%s%f"
+}
+RPS1='$(prompt_rps1)'
+
+PS2="${color2}╰> %f"
+RPS2="${color8}${PPID}%f"
+
+PS3="${color2}? %f"
+
+PS4="${color2}#${LINENO}:%f"
+
+# }}}
+
+# vim:filetype=zsh:syntax=zsh
+# vim:foldmethod=marker:foldlevel=0

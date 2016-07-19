@@ -1,0 +1,115 @@
+
+*termName: xterm-256color
+*locale: true
+
+! Colors
+*depth:              32
+*foreground:         #DDDDDD
+*background:         [80]#000000
+*color0:             #000000
+*color1:             #ff6565
+*color2:             #93d44f
+*color3:             #eab93d
+*color4:             #204a87
+*color5:             #ce5c00
+*color6:             #89b6e2
+*color7:             #cccccc
+*color8:             #555753
+*color9:             #ff8d8d
+*color10:            #c8e7a8
+*color11:            #ffc123
+*color12:            #3465a4
+*color13:            #f57900
+*color14:            #46a4ff
+*color15:            #ffffff
+!*colorBD:            color
+!*colorIT:            color
+!*colorUL:            color
+!*colorRV:            color
+*underlineColor:     #AAAAAA
+!*highlightColor:     color
+!*highlightTextColor: color
+!*cursorColor:        color
+!*cursorColor2:       color
+*fading:             20
+*fadeColor:          #111111
+
+urxvt.transparent: true
+urxvt.tintColor:   #ddeeff
+urxvt.shading:     10
+urxvt.blurRadius:  20x20
+
+! Fonts
+*font:            xft:DroidSansMono:style=regular:size=10,xft:Inconsolata:size=12
+*boldFont:        xft:DroidSans:style=bold:size=10,xft:Inconsolata:style=bold:size=12
+*italicFont:      xft:DroidSerif:style=Italic:size=10
+*boldItalicFont:  xft:DroidSerif:style=BoldItalic:size=10
+*intensityStyles: true
+*letterSpace:     0
+
+urxvt.resize-font.smaller: C-Minus
+urxvt.resize-font.bigger:  C-Plus
+
+! Window behaviour
+urxvt.urgentOnBell: true
+urxvt.visualBell:   false
+
+! Window style
+*externalBorder: 0
+*internalBorder: 0
+*borderLess: false
+*lineSpace: 0
+urxvt.cursorUnderline: true
+urxvt.cursorBlink: true
+
+! Pointer style
+Xcursor.size: 16
+urxvt.pointerBlank: true
+urxvt.pointerBlankDelay: 3600
+!urxvt*pointerShape: arrow
+*pointerColor: #ff0000
+*pointerColor2: #00ff00
+
+
+! Scroll behaviour
+urxvt.saveLines: 4096
+urxvt.jumpScroll: true
+urxvt.skipScroll: false
+urxvt.mouseWheelScrollPage: false
+
+! URLs
+urxvt.perl-ext-common: default,matcher
+urxvt.url-launcher: /usr/bin/xdg-open
+urxvt.matcher.button: 2
+!urxvt.matcher.rend.0: Uline Bold fg5
+
+!urxvt.keysym.sym:                     keysym
+!urxvt.remote-clipboard.fetch:         string
+!urxvt.remote-clipboard.store:         string
+!urxvt.selection-pastebin.cmd:         string
+!urxvt.selection-pastebin.url:         string
+!urxvt.tab-bg:                         colour
+!urxvt.tab-fg:                         colour
+!urxvt.tabbar-bg:                      colour
+!urxvt.tabbar-fg:                      colour
+
+
+! Scrollbar
+urxvt.scrollBar: true
+urxvt.scrollBar_right: true
+urxvt.scrollBar_floating: true
+urxvt.scrollBar_align: center
+urxvt.scrollstyle: plain
+urxvt.transpscrollbar: true
+urxvt.thickness: 5
+urxvt.scrollTtyOutput: false
+urxvt.scrollTtyKeypress: true
+urxvt.scrollWithBuffer: true
+urxvt.scrollColor: #777777
+urxvt.troughColor: #ff0000
+urxvt.borderColor: #111111
+
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: true
+URxvt*secondaryWheel: true
+

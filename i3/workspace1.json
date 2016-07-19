@@ -1,0 +1,150 @@
+// vim:ts=4:sw=4:et
+{
+    // splitv split container with 2 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "user_off",
+            "geometry": {
+               "height": 420,
+               "width": 552,
+               "x": 1228,
+               "y": 180
+            },
+            "name": "Session - Kit de Connexion Audio JACK",
+            "percent": 0.5,
+            "swallows": [
+               {
+                  "class": "^qjackctl$",
+                  "instance": "^qjackctl$",
+                  "title": "^Session\\ \\-\\ Kit\\ de\\ Connexion\\ Audio\\ JACK$"
+               // "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "user_off",
+            "geometry": {
+               "height": 1055,
+               "width": 1916,
+               "x": 0,
+               "y": 21
+            },
+            "name": "Messages / Statut - Kit de Connexion Audio JACK",
+            "percent": 0.5,
+            "swallows": [
+               {
+                  "class": "^qjackctl$",
+                  "instance": "^qjackctl$",
+                  "title": "^Messages\\ \\/\\ Statut\\ \\-\\ Kit\\ de\\ Connexion\\ Audio\\ JACK$"
+               // "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // splitv split container with 2 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "user_off",
+            "geometry": {
+               "height": 276,
+               "width": 558,
+               "x": 856,
+               "y": 186
+            },
+            "name": "Connexions - Kit de Connexion Audio JACK",
+            "percent": 0.5,
+            "swallows": [
+               {
+                  "class": "^qjackctl$",
+                  "instance": "^qjackctl$",
+                  "title": "^Connexions\\ \\-\\ Kit\\ de\\ Connexion\\ Audio\\ JACK$"
+               // "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "user_off",
+            "geometry": {
+               "height": 525,
+               "width": 956,
+               "x": 964,
+               "y": 555
+            },
+            "name": "Baie de brassage - Kit de Connexion Audio JACK",
+            "percent": 0.5,
+            "swallows": [
+               {
+                  "class": "^qjackctl$",
+                  "instance": "^qjackctl$",
+                  "title": "^Baie\\ de\\ brassage\\ \\-\\ Kit\\ de\\ Connexion\\ Audio\\ JACK$"
+               // "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // floating_con with 1 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splith",
+    "percent": null,
+    "rect": {
+       "height": 105,
+       "width": 498,
+       "x": 708,
+       "y": 23
+    },
+    "type": "floating_con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "user_on",
+            "geometry": {
+               "height": 101,
+               "width": 494,
+               "x": 495,
+               "y": 34
+            },
+            "name": "JACK Audio Connection Kit [(par défaut)] Démarré.",
+            "percent": 1,
+            "swallows": [
+               {
+                  "class": "^qjackctl$",
+                  "instance": "^qjackctl$",
+                  "title": "^JACK\\ Audio\\ Connection\\ Kit\\ \\[\\(par\\ défaut\\)\\]\\ Démarré\\.$"
+               // "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

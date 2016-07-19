@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+   <meta charset="utf-8" />
+   <!-- <base href=""> -->
+   <!-- <meta http-equiv="default-style" content="" /> -->
+   <!-- <meta http-equiv="refresh" content="30" /> -->
+   <!-- <meta http-equiv="refresh" content="2; URL=modele2.html" /> -->
+   
+   <title>Blog</title>
+   <!-- defined metadata names -->
+   <meta name="author" content="" />
+   <meta name="description" content="" />
+   <meta name="keywords" content="" />
+   <!-- registered metadata names (see http://wiki.whatwg.org/wiki/MetaExtensions) -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="publisher" content="" />
+   <meta name="reply-to" content="" />
+   <meta name="contact" content="" />
+   <meta name="contactname" content="" />
+   <meta name="contactorganization" content="" />
+   <meta name="contactstreetaddress1" content="" />
+   <meta name="contactstreetaddress2" content="" />
+   <meta name="contactzip" content="" />
+   <meta name="contactcity" content="" />
+   <meta name="contactstate" content="" />
+   <meta name="identifier-url" content="" />
+   <meta name="subject" content="" />
+   <meta name="distribution" content="" />
+   <meta name="rating" content="" />
+   <meta name="copyright" content="" />
+   <meta name="generator" content="" />
+   <meta name="date-creation-ddmmyyyy" content="" />
+   <meta name="date-revision-ddmmyyyy" content="" />
+   <meta name="content-script-type" content="text/javascript" />
+   <meta name="content-style-type" content="text/css" />
+   <meta name="robots" content="index, follow, noarchive" />
+   <meta name="revisit-after" content="15 days" />
+
+   <!-- Styles -->
+   <link rel="icon" type="image/x-icon" href="favicon.ico" />
+   <link rel="stylesheet" type="text/css" href="style.css" title="alternativestyle.css"/>
+   <!-- <style type="test/css"> @import url("style.css"); </style> -->
+
+   <!-- Compatibilities -->
+   <!--[if lt IE 7]>
+   <script type="text/javascript" src="/template/ie7/IE7.js"></script>
+   <![endif]-->
+</head>
+
+<body>
+   <header>
+      <h1>Titre du header</h1>
+   </header>
+
+   <nav>
+      <ul>
+         <li><a href="/">Home</a></li>
+         <li><a href="http://www.w3.org">www.w3.org</a></li>
+      </ul>
+   </nav>
+
+   <main>
+      <section>
+         <article>
+            <header>
+               <h1>Mis en forme du texte</h1>
+            </header>
+            <div>
+               <h1>Grand titre</h1>
+               <h2>Moyen titre</h2>
+               <h3>Petit titre</h3>
+               <h4>Tout petit titre</h4>
+               <h5>Titre minuscule</h5>
+               <h6>Titre ridicule</h6>
+               <aside>note ou complément</aside>
+               <a href="modele.xhtml" title="cliquez !" target="_blank" download="filename" hreflang="en" type="text/xhtml">Lien hypertext</a>
+               <p>
+               In a sentence, you can <em>emphasize</em> an element or show its <strong>extreme importance</strong>. In the other side, a <dfn>defined</dfn> element<small>a normal one</small> which is <s>irrelevant</s> can be <i>italized</i>, <b>"bolded"</b> or <u>underlined</u>. There is also sup<sup>erscript</sup>, sub<sub>script</sub>, <mark>marked</mark> elements.<br />
+               nouvelle ligne un peu longue avec une opportunitée de retour à la ligne auto par le navi<wbr />gateur au milieu du mot "navigateur".
+               </p>
+               <p>
+                  <cite>Moi : </cite>Voici une citation
+               </p>
+               <q cite="encore moi">
+                  Il y a moyen d'en faire de plus <del cite="pff" datetime="2005-03-03">moches</del><ins cite="mieux" datetime="2005-03-04">jolies</ins>.
+               </q>
+               <p>
+               <dfn><abbr title="World Wide Web">WWW</abbr></dfn>
+               <abbr title="World Wide Web">WWW</abbr>
+               WWW
+               <dfn title="World Wide Web">WWW</dfn>
+               </p>
+               Utile en cas de traitement par la machine :<br />
+               Des données : <data value="012345">le nombre 012345</data><br />
+               Une date : <time datetime="2015-10-05">5 octobre</time><br />
+               Une variable <var>n</var><br />
+               <samp> Une sortie de programme par exemple</samp><br />
+               <kbd>Une entrée utilisateur par exemple</kbd><br />
+               <samp><kbd>Entrée renvoyée par le systeme</kbd></samp><br />
+               <kbd><samp>Entrée basée sur une sortie systeme</samp></kbd><br />
+               <bdo dir="rtl">texte a l'envers</bdo><br />
+               <span dir="rtl">le span permet de profiter de class, lang ou dir sans modifications</span>
+            </div>
+            <footer>
+               <hr /> <!-- séparateur -->
+               Publié le 03/03/1992
+            </footer>
+         </article>
+         <article>
+            <header>
+               <h1>Groupement d'éléments</h1>
+            </header>
+            <div>
+               <p>Ceci est un paragraphe</p>
+               <pre>Un peu de texte préformaté
+               c'est cool non ?</pre>
+               A ne pas confondre avec <code>la balise code</code>
+               <blockquote cite="http://www.w3.org/TR/html5/grouping-content.html#the-blockquote-element">The blockquote element represents content that is quoted from another source</blockquote>
+               <ol reversed="" start="7" type="i">
+                  <li>Choix 1</li>
+                  <li value="4">Choix 2</li>
+                  <li>Choix 3</li>
+               </ol>
+               <ol>
+                  <li>Choix 1</li>
+                  <li>Choix 2</li>
+                  <li>Choix 3</li>
+               </ol>
+               <dl>
+                  <dt>Authors</dt>
+                  <dd>John</dd>
+                  <dd>Luke</dd>
+                  <dt>Editor</dt>
+                  <dd>Frank</dd>
+               </dl>
+            </div>
+            <footer>
+               <hr /> <!-- séparateur -->
+               Publié le 03/03/1992
+            </footer>
+         </article>
+      </section>
+      <section>
+         <table border="1" sortable="sortable">
+            <caption> caption </caption>
+            <colgroup><col style="background-color:red" /><col /><col /></colgroup>
+            <thead>
+               <tr>
+                  <th>0</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>2</th>
+               </tr>
+               <tr>
+                  <th colspan="2">3</th>
+                  <td>4</td>
+                  <td>5</td>
+               </tr>
+            </thead>
+            <tbody>
+            <colgroup><col /><col /></colgroup>
+               <tr>
+                  <th rowspan="2" colspan="2">10</th>
+                  <td>11</td>
+                  <td>12</td>
+               </tr>
+               <tr>
+                  <td>14</td>
+                  <td>15</td>
+               </tr>
+            </tbody>
+            <tfoot>
+               <tr>
+                  <th>20</th>
+                  <td>21</td>
+                  <td>22</td>
+               </tr>
+               <tr>
+                  <th>23</th>
+                  <td>24</td>
+                  <td>25</td>
+               </tr>
+            </tfoot>
+         </table>
+      </section>
+      <section>
+         Gallerie de média
+         <figure>
+            <img src="https://duckduckgo.com/assets/dax-alt.svg" alt="duck" width="128" height="128" />
+            <iframe src="http://maps.example.com/embedded.html" width="128" height="128" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation" />
+            <embed src="https://duckduckgo.com" type="text/html" width="128" height="128" />
+            <object data="https://duckduckgo.com" type="" width="128" height="128">
+               <param name="" value="" />
+            </object>
+            <video src="" poster="" preload="none" autoplay="" mediagroup="" loop="" muted="" controls="controls" width="128" height="128">
+                <track kind="subtitles" src="" srclang="" label="" default="default" />
+                <track kind="caption" src="" srclang="" label="" default="default" />
+                <track kind="description" src="" srclang="" label="" default="default" />
+                <track kind="chapters" src="" srclang="" label="" default="default" />
+                <track kind="metadata" src="" srclang="" label="" default="default" />
+            </video>
+            <audio src="" preload="metadata" autoplay="" mediagroup="" loop="" muted="" controls="controls" width="128" height="128" />
+            <source src="" type="" />
+            <figcaption>médiasss</figcaption>
+         </figure>
+         <map name="shapes">
+            <area alt="text" shape="circle" coords="0,0,50" download="download" href="html5.xhtml" hreflang="" target="" type="" />
+            <area alt="text" shape="default" href="html5.xhtml" hreflang="" target="" type="" />
+            <area alt="text" shape="poly" coords="0,0 , 0,50 , 100,100" href="html5.xhtml" />
+            <area alt="text" shape="rect" coords="0,0,50,50" href="html5.xhtml" />
+         </map>
+         <img src="shapes.png" width="256" height="256" alt="map" usemap="#shapes" />
+      </section>
+   </main>
+
+   <aside>
+
+   </aside>
+
+   <footer>
+      
+      <address>
+         For more details, contact
+         <a href="mailto:js@example.com" type="author">John Smith</a>
+      </address>
+   </footer>
+
+   <script type="text/javascript">
+   
+   </script>
+   <noscript>
+
+   </noscript>
+</body>
+
+</html>
+

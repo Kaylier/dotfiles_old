@@ -1,0 +1,349 @@
+# i3 config file (v4)
+
+
+# General settings {{{
+
+# Choose modifier : Super key
+set $mod Mod4
+
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# Select the font
+font pango:Droid Sans Bold 10
+# Modifier to activate mouse windows moving
+floating_modifier $mod
+# Choose orientation of initial splitting
+default_orientation auto
+# Choose initial layout
+workspace_layout default
+workspace_auto_back_and_forth yes
+# Windows borders
+new_window pixel 2
+new_float normal
+floating_minimum_size 80 x 50
+#bindsym $mod+r              reload
+bindsym $mod+Shift+r        restart
+bindsym Ctrl+Alt+BackSpace  exit
+
+# }}}
+# Colors {{{
+
+# active
+set $font0 #EEEEEE
+set $back0 #2C2C2C
+set $bord0 #00607F
+set $indi0 #004166
+# inactive
+set $font1 #888888
+set $back1 #0C0C0C
+set $bord1 #2C2C2C
+set $indi1 #0C0C0C
+# urgent
+set $font2 #000000
+set $back2 #875FFF
+set $bord2 #A97FFF
+set $indi2 #875FFF
+# theme color
+set $font3 #00C1FF
+
+# Color settings        Border      Background  Font        Indicator
+client.focused          $bord0      $back0      $font0      $indi0
+client.focused_inactive $bord1      $back1      $font1      $indi1
+client.unfocused        $bord1      $back1      $font1      $indi1
+client.urgent           $bord2      $back2      $font2      $indi2
+
+# }}}
+# Shortcuts {{{
+
+# see showkey in tty to determine a keycode
+# Management {{{
+bindsym $mod+Return     exec dmenu_run
+bindsym $mod+t          exec i3-sensible-terminal
+# }}}
+# Audio controls {{{
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
+bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
+bindsym Ctrl+space exec --no-startup-id mpc toggle
+bindsym Ctrl+Right exec --no-startup-id mpc next
+bindsym Ctrl+Left exec --no-startup-id mpc prev
+# }}}
+# Sreen brightness controls {{{
+bindsym XF86MonBrightnessUp exec sudo lumos +15
+bindsym XF86MonBrightnessDown exec sudo lumos -15
+# }}}
+# Scratchpad {{{
+bindsym $mod+twosuperior move scratchpad
+bindsym twosuperior scratchpad show
+# }}}
+
+# }}}
+# Window management shortcuts {{{ 
+
+bindsym $mod+q kill
+
+# Change focus {{{
+# Vim shortcuts
+bindsym $mod+h      focus left
+bindsym $mod+j      focus down
+bindsym $mod+k      focus up
+bindsym $mod+l      focus right
+# Keypad
+bindsym $mod+Left   focus left
+bindsym $mod+Down   focus down
+bindsym $mod+Up     focus up
+bindsym $mod+Right  focus right
+# Mouse
+bindsym --whole-window $mod+button4 focus up
+bindsym --whole-window $mod+button5 focus down
+bindsym --whole-window $mod+button6 focus left
+bindsym --whole-window $mod+button7 focus right
+# }}}
+# Move focused window {{{
+# Vim shortcuts
+bindsym $mod+Shift+h    move left
+bindsym $mod+Shift+j    move down
+bindsym $mod+Shift+k    move up
+bindsym $mod+Shift+l    move right
+# Keypad
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up   move up
+bindsym $mod+Shift+Right move right
+# }}}
+# Split direction {{{
+bindsym $mod+g split h
+bindsym $mod+v split v
+# }}}
+# Fullscreen {{{
+bindsym $mod+f fullscreen toggle
+# }}}
+# change container layout (stacked, tabbed, toggle split) {{{
+bindsym $mod+s layout stacking
+bindsym $mod+d layout tabbed
+bindsym $mod+e layout toggle split
+# }}}
+# toggle tiling / floating {{{
+bindsym $mod+Shift+space floating toggle
+bindsym button2 floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+# }}}
+# Parent / Children {{{
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+z focus child
+# }}}
+
+# }}}
+# Workspaces {{{ 
+
+# Names {{{ 
+#set $workspace1 "1:♫"
+#set $workspace2 "2:@"
+#set $workspace3 "3:☭"
+#set $workspace4 "4:⚙"
+#set $workspace5 "5:♂"
+#set $workspace6 "6:♃"
+#set $workspace7 "7:♄"
+#set $workspace8 "8:⛢"
+#set $workspace9 "9:♆"
+#set $workspace10 "10:Extern"
+set $workspace1 "1:♪"
+set $workspace2 "2:@"
+set $workspace3 "3:¢"
+set $workspace4 "4:ł"
+set $workspace5 "5:ŧ"
+set $workspace6 "6:¥"
+set $workspace7 "7:Ŧ"
+set $workspace8 "8:¢"
+set $workspace9 "9:ı"
+set $workspace10 "10:Extern"
+# }}}
+# Screen {{{
+workspace $workspace1 output LVDS
+workspace $workspace2 output LVDS
+workspace $workspace3 output LVDS
+workspace $workspace4 output LVDS
+workspace $workspace5 output LVDS
+workspace $workspace6 output LVDS
+workspace $workspace7 output LVDS
+workspace $workspace8 output LVDS
+workspace $workspace9 output LVDS
+workspace $workspace10 output HDMI1
+#workspace $workspace10 output VGA1
+# }}}
+# switch to workspace {{{
+# Short moves
+bindsym $mod+less       workspace $workspace1
+bindsym $mod+w          workspace $workspace2
+bindsym $mod+x          workspace $workspace3
+bindsym $mod+c          workspace $workspace4
+bindsym $mod+b          workspace $workspace5
+bindsym $mod+n          workspace $workspace6
+bindsym $mod+comma      workspace $workspace7
+bindsym $mod+semicolon  workspace $workspace8
+bindsym $mod+colon      workspace $workspace9
+bindsym $mod+exclam     workspace $workspace10
+# Numbers
+bindsym $mod+ampersand  workspace $workspace1
+bindsym $mod+eacute     workspace $workspace2
+bindsym $mod+quotedbl   workspace $workspace3
+bindsym $mod+apostrophe workspace $workspace4
+bindsym $mod+parenleft  workspace $workspace5
+bindsym $mod+minus      workspace $workspace6
+bindsym $mod+egrave     workspace $workspace7
+bindsym $mod+underscore workspace $workspace8
+bindsym $mod+ccedilla   workspace $workspace9
+bindsym $mod+agrave     workspace $workspace10
+# }}}
+# move focused container to workspace {{{
+# Short moves
+bindsym $mod+Shift+less      move container to workspace $workspace1 ; workspace $workspace1
+bindsym $mod+Shift+w         move container to workspace $workspace2 ; workspace $workspace2
+bindsym $mod+Shift+x         move container to workspace $workspace3 ; workspace $workspace3
+bindsym $mod+Shift+c         move container to workspace $workspace4 ; workspace $workspace4
+bindsym $mod+Shift+b         move container to workspace $workspace5 ; workspace $workspace5
+bindsym $mod+Shift+n         move container to workspace $workspace6 ; workspace $workspace6
+bindsym $mod+Shift+comma     move container to workspace $workspace7 ; workspace $workspace7
+bindsym $mod+Shift+semicolon move container to workspace $workspace8 ; workspace $workspace8
+bindsym $mod+Shift+colon     move container to workspace $workspace9 ; workspace $workspace9
+bindsym $mod+Shift+exclam    move container to workspace $workspace10; workspace $workspace10
+# Numbers
+bindsym $mod+Shift+1         move container to workspace $workspace1 ; workspace $workspace1
+bindsym $mod+Shift+eacute    move container to workspace $workspace2 ; workspace $workspace2
+bindsym $mod+Shift+3         move container to workspace $workspace3 ; workspace $workspace3
+bindsym $mod+Shift+4         move container to workspace $workspace4 ; workspace $workspace4
+bindsym $mod+Shift+5         move container to workspace $workspace5 ; workspace $workspace5
+bindsym $mod+Shift+6         move container to workspace $workspace6 ; workspace $workspace6
+bindsym $mod+Shift+egrave    move container to workspace $workspace7 ; workspace $workspace7
+bindsym $mod+Shift+8         move container to workspace $workspace8 ; workspace $workspace8
+bindsym $mod+Shift+ccedilla  move container to workspace $workspace9 ; workspace $workspace9
+bindsym $mod+Shift+agrave    move container to workspace $workspace10; workspace $workspace10
+# }}}
+
+# }}}
+# Modes {{{
+
+# System {{{
+set $mode_system "System : (Return) Shutdown ; (r) Reboot ; (l) Lock"
+mode $mode_system {
+    bindsym Return exec "shutdown now"
+    bindsym r exec "reboot"
+    #bindsym l exec i3lock --color=000000 -f -d; mode "default"
+    bindsym l exec $HOME/.config/i3/i3-lock-wrapper -l -f; mode "default"
+
+    # back to normal
+    bindsym BackSpace mode "default"
+    bindsym $mod+BackSpace mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+BackSpace mode $mode_system
+# }}}
+# Launcher {{{
+set $mode_launcher "Launch | < : Music | w : Internet | x : Work | c : Compilation"
+mode $mode_launcher {
+    bindsym less workspace $workspace1; exec i3-msg 'append_layout ~/.config/i3/workspace1.json'; mode "default"
+    bindsym w workspace $workspace2; exec i3-msg 'append_layout ~/.config/i3/workspace2.json'; exec firefox; exec thunderbird; mode "default"
+    bindsym x workspace $workspace3; exec i3-msg 'append_layout ~/.config/i3/workspace3.json'; exec urxvt; exec urxvt; exec urxvt; exec urxvt; mode "default"
+    bindsym c workspace $workspace4; exec i3-msg 'append_layout ~/.config/i3/workspace4.json'; exec urxvt; exec urxvt; exec urxvt; exec urxvt; mode "default"
+
+    # back to normal
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+asterisk mode $mode_launcher
+# }}}
+# Resize {{{
+set $mode_resize "Resize"
+mode $mode_resize {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym h resize shrink width  10 px or 10 ppt
+    bindsym j resize grow   height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow   width  10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left  resize shrink width  10 px or 10 ppt
+    bindsym Down  resize grow   height 10 px or 10 ppt
+    bindsym Up    resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow   width  10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+# }}}
+
+# }}}
+# Statusbar {{{
+
+bar {
+    #output VGA0
+    #output HDMI0
+    output LVDS
+    #status_command i3status
+    status_command $HOME/.config/i3/conky-i3bar.sh
+    tray_output none
+    modifier Mod4
+    position top
+    strip_workspace_numbers yes
+
+    colors {
+        background $back1
+        statusline $font3
+        separator  $font3
+        #                  Border  Backgr. Font
+        focused_workspace  $back1  $back1  $font0
+        active_workspace   $back1  $back1  $font0
+        inactive_workspace $back1  $back1  $font1
+        urgent_workspace   $bord2  $back2  $font2
+        binding_mode       $bord0  $back0  $font0
+    }
+	
+    # Mouse bindings are annoying
+    bindsym button4 exec :
+    bindsym button5 exec :
+}
+
+# }}}
+# Windows assignements {{{
+
+assign [class="qjackctl"] $workspace1
+assign [class="Firefox"] $workspace2
+assign [class="Thunderbird"] $workspace2
+assign [class="Deluge"] $workspace2
+for_window [instance="scratchpad"] move to scratchpad
+#for_window [workspace=$workspace1] layout stacking
+for_window [workspace=$workspace2] layout tabbed
+for_window [workspace=$workspace10] fullscreen enable
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [window_role="menu"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [class="qjackctl"] floating enable
+
+# }}}
+# Startup {{{
+
+exec_always feh --bg-fill ~/.wallpaper.jpg
+
+exec urxvt -name scratchpad
+
+exec qjackctl
+
+exec_always sleep 3; amixer -c 0 set Headphone unmute 100%
+
+# }}}
+
+# vim:filetype=conf:syntax=conf
+# vim:foldmethod=marker:foldlevel=0

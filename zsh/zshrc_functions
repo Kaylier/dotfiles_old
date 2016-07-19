@@ -1,0 +1,164 @@
+# template {{{
+# Create a file based on a template (detected with the suffixe)
+TEMPLATE_DIR=${DOTFILES_DIR-}/template
+if [[ -d "${TEMPLATE_DIR}" ]]
+then
+    function template()
+    {
+	    [[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
+
+	    if [[ -e $1 ]]
+        then
+            echo "The file already exists, it will be opened"
+            echo -n "Press ENTER to resume"
+            read
+	        ${EDITOR} "$1";
+	    else
+            local TEMPLATE_FILE=${TEMPLATE_DIR}/${1/*.}
+            if [ -f "${TEMPLATE_FILE}" ]
+            then
+                if [[ ${EDITOR} == *vim* ]]
+                then
+                    # Pour vim, on laisse le soins à l'utilisateur 
+                    # de créer le fichier en l'enregistrant via vim
+                    ${EDITOR} -c ":0read ! cat \"${TEMPLATE_FILE}\"" "$1"
+                else
+                    cp "${TEMPLATE_FILE}" "$1"
+                    ${EDITOR} "$1"
+                fi
+            else
+                echo "No template found in '${TEMPLATE_DIR}' for the extension '${1/*.}'"
+                echo -n "Press ENTER to resume"
+                read
+            fi
+	    fi;
+	    return 0;
+    }
+fi
+# }}}
+# compile {{{
+# Compile a file and execute the result, before deleting it
+function compile()
+{
+	[[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
+	[[ -r $1 ]] || { printf "File %s is not readable" "$1" >&2; return 1; }
+
+	local OUTPUT_PATH=${TMPDIR:-/tmp}/${1##*/};
+	case $1 in
+		*.cpp)	g++ "$1" -o "$OUTPUT_PATH" && "$OUTPUT_PATH" ;;
+		*.c)	gcc "$1" -o "$OUTPUT_PATH" && "$OUTPUT_PATH" ;;
+        *.adb)  gnatmake "$1" -o "$OUTPUT_PATH" && "$OUTPUT_PATH" ;;
+		*)	    echo "$1 : unrecognized file extension" >&2
+			continue;;
+	esac
+	[[ -e $OUTPUT_PATH ]] && { rm "$OUTPUT_PATH";}
+
+}
+# }}}
+# xtitle  {{{
+# Change the title of the terminal if possible
+function xtitle()
+{
+    case "$TERM" in
+        *term* | rxvt)
+            echo -ne "\e]0;$*\a" ;;
+        *)  ;;
+    esac
+}
+# }}}
+# extract {{{
+# Detect type and extract
+function extract()
+{
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1     ;;
+            *.tar.gz)    tar xvzf $1     ;;
+            *.bz2)       bunzip2 $1      ;;
+            *.rar)       unrar x $1      ;;
+            *.gz)        gunzip $1       ;;
+            *.tar)       tar xvf $1      ;;
+            *.tbz2)      tar xvjf $1     ;;
+            *.tgz)       tar xvzf $1     ;;
+            *.zip)       unzip $1        ;;
+            *.Z)         uncompress $1   ;;
+            *.7z)        7z x $1         ;;
+            *)           echo "'$1' cannot be extracted via 'extract'" ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+}
+# }}}
+# swap {{{
+# Swap 2 filenames around, if they exist (from Uzi's bashrc).
+function swap()
+{
+    local TMPFILE=tmp.$$
+
+    [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
+    [ ! -e $1 ] && echo "swap: $1 does not exist" && return 1
+    [ ! -e $2 ] && echo "swap: $2 does not exist" && return 1
+
+    mv "$1" $TMPFILE
+    mv "$2" "$1"
+    mv $TMPFILE "$2"
+}
+# }}}
+# repeat {{{
+# 'repeat n command' repeat the command n times
+function repeat()
+{
+    local i max
+    max=$1; shift;
+    for ((i=1 ; i <= max ; i++)); do
+        eval "$@";
+    done
+}
+# }}}
+# ask {{{
+function ask()
+{
+    local ans
+    echo -n "$@" '[y/N] ' ; read ans
+    case "$ans" in
+        y*|Y*) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+# }}}
+# maybe {{{
+# after yes and no, maybe: print randomly 'y' or 'n'
+function maybe()
+{
+    while true
+    do
+        if [ $(( $RANDOM % 2 )) -eq 0 ]
+        then
+            echo 'y'
+        else
+            echo 'n'
+        fi
+    done
+}
+# }}}
+
+# _info {{{
+# Get current host related info.
+function _info()
+{
+    echo -e "\nYou are logged on $(tput setaf 9)${HOST}"
+    echo -e "\n$(tput setaf 9)Additionnal information:$(tput sgr0) " ; uname -a
+    echo -e "\n$(tput setaf 9)Users logged on:$(tput sgr0) " ; w -hs |
+             cut -d " " -f1 | sort | uniq
+    echo -e "\n$(tput setaf 9)Current date :$(tput sgr0) " ; date
+    echo -e "\n$(tput setaf 9)Machine stats :$(tput sgr0) " ; uptime
+    echo -e "\n$(tput setaf 9)Memory stats :$(tput sgr0) " ; free
+    echo -e "\n$(tput setaf 9)Diskspace :$(tput sgr0) " ; df / $HOME
+    echo -e "\n$(tput setaf 9)Open connections :$(tput sgr0) "; netstat -pan --inet;
+    echo
+}
+# }}}
+
+# vim:filetype=sh:syntax=sh
+# vim:foldmethod=marker:foldlevel=0
