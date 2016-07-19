@@ -1,65 +1,56 @@
-#! /bin/bash
+#! /bin/sh
 
 export DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Modify the condition if you have change the zsh/zshenv
+if [[ "${DOTFILES_DIR}" != "${HOME}/.dotfiles" ]]
+then
+    echo "The file zsh/zshenv is not configured by default for ${DOTFILES_DIR}."
+    echo "It may cause problem with calls to custom binaries and templates."
+    echo
+
+    local ans
+    echo -n "Do you want to resume ? [y/N] "
+    read ans
+    case "$ans" in
+        y*|Y*) ;;
+        *) exit 1;;
+    esac
+fi
+
 echo ${DOTFILES_DIR-}
-exit 0
 
 # Update dotfiles
 if [ -d "${DOTFILES_DIR}/.git" ]
 then 
-	git --work-tree="${DOTFILES_DIR}" --git-dir="${DOTFILES_DIR}/.git" pull origin master
+	echo git --work-tree="${DOTFILES_DIR}" --git-dir="${DOTFILES_DIR}/.git" pull origin master
 else
 	echo "Missing git repository: ${DOTFILES_DIR}/.git"
     exit 1
 fi
 
+echo ln -sbv ${DOTFILES_DIR}/git/gitconfig       ${HOME}/.gitconfig
+echo ln -sbv ${DOTFILES_DIR}/i3/config           ${HOME}/.config/i3/config
+echo ln -sbv ${DOTFILES_DIR}/i3/conky-i3bar      ${HOME}/.config/i3/conky-i3bar
+echo ln -sbv ${DOTFILES_DIR}/i3/conky-i3bar.sh   ${HOME}/.config/i3/conky-i3bar.sh
+echo ln -sbv ${DOTFILES_DIR}/i3/workspace1.json  ${HOME}/.config/i3/workspace1
+echo ln -sbv ${DOTFILES_DIR}/i3/workspace3.json  ${HOME}/.config/i3/workspace3
+echo ln -sbv ${DOTFILES_DIR}/i3/workspace4.json  ${HOME}/.config/i3/workspace4
+echo ln -sbv ${DOTFILES_DIR}/urxvt/Xresources    ${HOME}/.Xresources
+echo ln -sbv ${DOTFILES_DIR}/vim/vimrc           /etc/vimrc
+echo ln -sbv ${DOTFILES_DIR}/zsh/zlogin          /etc/zsh/zlogin
+echo ln -sbv ${DOTFILES_DIR}/zsh/zlogout         /etc/zsh/zlogout
+echo ln -sbv ${DOTFILES_DIR}/zsh/zprofile        /etc/zsh/zprofile
+echo ln -sbv ${DOTFILES_DIR}/zsh/zshenv          /etc/zsh/zshenv
+echo ln -sbv ${DOTFILES_DIR}/zsh/zshrc           /etc/zsh/zshrc
+echo ln -sbv ${DOTFILES_DIR}/zsh/zshrc_aliases   /etc/zsh/zshrc_aliases
+echo ln -sbv ${DOTFILES_DIR}/zsh/zshrc_functions /etc/zsh/zshrc_functions
+echo ln -sbv ${DOTFILES_DIR}/zsh/zshrc_prompts   /etc/zsh/zshrc_prompts
 
-# /etc/profile
-#   The systemwide initialization file, executed for login shells
-#ln -sfv ${DOTFILES_DIR}/bash/profile /etc/profile
 
-# ~/.bash_profile
-#   The personal initialisation file, executed for login shells
-ln -sfv ${DOTFILES_DIR}/bash/.bash_profile ~/.bash_profile
+exit 0
 
-# /etc/bash.bashrc
-#   The systemwide startup file
-#ln -sfv ${DOTFILES_DIR}/bash/.bashrc /etc/bash.bashrc
-#ln -sfv ${DOTFILES_DIR}/bash/.bashrc_prompts /etc/.bashrc_prompts
-#ln -sfv ${DOTFILES_DIR}/bash/.bashrc_functions /etc/.bashrc_functions
-#ln -sfv ${DOTFILES_DIR}/bash/.bashrc_aliases /etc/.bashrc_aliases
-#ln -sfv ${DOTFILES_DIR}/bash/.bashrc_completion /etc/.bashrc_completion
 
-# ~/.bashrc
-#   The individual per-interactive-shell startup file
-ln -sfv ${DOTFILES_DIR}/bash/.bashrc ~/.bashrc
-ln -sfv ${DOTFILES_DIR}/bash/.bashrc_prompts ~/.bashrc_prompts
-ln -sfv ${DOTFILES_DIR}/bash/.bashrc_functions ~/.bashrc_functions
-ln -sfv ${DOTFILES_DIR}/bash/.bashrc_aliases ~/.bashrc_aliases
-ln -sfv ${DOTFILES_DIR}/bash/.bashrc_completion ~/.bashrc_completion
-
-# ~/.bash_logout
-#   The individual login shell cleanup file, executed when a login shell exits
-ln -sfv ${DOTFILES_DIR}/bash/.bash_logout ~/.bash_logout
-
-# ~/.inputrc
-#   Individual readline initialization file
-#ln -sfv ${DOTFILES_DIR}/bash/.inputrc ~/.input
-
-# ~/.vimrc
-#   Vim configuration file
-ln -sfv ${DOTFILES_DIR}/vim/.vimrc ~/.vimrc
-
-# ~/.gitconfig
-ln -sfv ${DOTFILES_DIR}/git/.gitconfig ~/.gitconfig
-
-# ~/.conkyrc
-# ~/.config/i3/config
-# ~/.config/i3/conky-i3bar.sh
-# ~/.config/i3/conky-i3bar
-# /etc/mopidy/mopidy.conf
-# /etc/pacman.conf
 
 # vim:filetype=sh:syntax=sh
 # vim:foldmethod=marker:foldlevel=0
