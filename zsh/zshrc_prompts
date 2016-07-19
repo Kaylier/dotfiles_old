@@ -92,8 +92,10 @@ git_line () {
         local remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
         local ahead=$(git rev-list @{u}..@ 2>/dev/null | wc -l)
         local behind=$(git rev-list @..@{u} 2>/dev/null | wc -l)
-        local modified=$(git diff --quiet 2>/dev/null)
-        local staged=$(git diff --cached --quiet 2>/dev/null)
+        git diff --quiet 2>/dev/null
+        local modified=$?
+        git diff --cached --quiet 2>/dev/null
+        local staged=$?
         local stash=$(git stash list 2>/dev/null | wc -l)
 
         echo -n "${uid}${junc}${color11}${left}${remote_branch}${right}"
