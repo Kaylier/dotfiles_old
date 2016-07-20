@@ -52,6 +52,10 @@ The music is managed via MPC, and informations in status bar are ask to a mpd cl
 The locker comes from [i3-extras by ashinkarov](https://github.com/ashinkarov/i3-extras) and is very nice ;)
 
 
+## Jack
+Here are scripts for qjackctl to connect with pulse-audio.
+
+
 ## Templates
 This folder contains different kind of files, named after the corresponding suffix : 
 * `c` C source

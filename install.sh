@@ -37,6 +37,10 @@ ln -sfv ${DOTFILES_DIR}/i3/conky-i3bar.sh   ${HOME}/.config/i3/conky-i3bar.sh
 ln -sfv ${DOTFILES_DIR}/i3/workspace1.json  ${HOME}/.config/i3/workspace1.json
 ln -sfv ${DOTFILES_DIR}/i3/workspace3.json  ${HOME}/.config/i3/workspace3.json
 ln -sfv ${DOTFILES_DIR}/i3/workspace4.json  ${HOME}/.config/i3/workspace4.json
+ln -sfv ${DOTFILES_DIR}/jack/post-start.sh  ${HOME}/.config/jack/post-start.sh
+ln -sfv ${DOTFILES_DIR}/jack/post-stop.sh   ${HOME}/.config/jack/post-stop.sh
+ln -sfv ${DOTFILES_DIR}/jack/pre-stop.sh    ${HOME}/.config/jack/pre-stop.sh
+ln -sfv ${DOTFILES_DIR}/jack/pre-start.sh   ${HOME}/.config/jack/pre-start.sh
 ln -sfv ${DOTFILES_DIR}/urxvt/Xresources    ${HOME}/.Xresources
 
 echo "Link system-wide configuration files..."
