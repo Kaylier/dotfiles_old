@@ -28,8 +28,10 @@ function firefox() { command firefox "$@" & }
 # }}}
 # New commands {{{
 
+alias g='git'
 alias h='history'
 alias j='jobs -l'
+alias l='ls -Bltro'
 alias ll='ls -l'
 alias lr='ll -R'
 alias la='ll -A'
