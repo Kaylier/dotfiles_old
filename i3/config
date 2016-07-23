@@ -68,8 +68,8 @@ bindsym Ctrl+Right exec --no-startup-id mpc next
 bindsym Ctrl+Left exec --no-startup-id mpc prev
 # }}}
 # Sreen brightness controls {{{
-bindsym XF86MonBrightnessUp exec sudo lumos +15
-bindsym XF86MonBrightnessDown exec sudo lumos -15
+bindsym XF86MonBrightnessUp exec --no-startup-id /bin/zsh -c 'sudo xbacklightamd -inc 15'
+bindsym XF86MonBrightnessDown exec --no-startup-id /bin/zsh -c 'sudo xbacklightamd -dec 15'
 # }}}
 # Scratchpad {{{
 bindsym $mod+twosuperior move scratchpad
@@ -334,6 +334,8 @@ for_window [class="qjackctl"] floating enable
 
 # }}}
 # Startup {{{
+
+exec_always numlockx on
 
 exec_always feh --bg-fill ~/.wallpaper.jpg
 

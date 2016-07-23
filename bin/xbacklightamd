@@ -1,0 +1,101 @@
+#! /bin/sh
+
+function usage()
+{
+    echo -e "usage: $0 [options]"
+    echo -e "  where options are:"
+    echo -e "  -display <display> or -d <display>"
+    echo -e "  -help or -h"
+    echo -e "  -set <value> or = <value>"
+    echo -e "  -inc <value> or + <value>"
+    echo -e "  -dec <value> or - <value>"
+    echo -e "  -get"
+    echo -e "  -time <fade time in milliseconds>"
+    echo -e "  -steps <number of steps in face>"
+}
+
+DISPLAY=$( ls -1 /sys/class/backlight | head -n 1)
+VALUEINC=0
+
+while [[ $# -ne 0 ]]
+do
+    case $1 in
+        -display|-d) 
+            shift
+            [[ $# -eq 0 ]] && echo "Missing display" && usage && exit 1
+            DISPLAY=$1
+            ;;
+        -set|=)
+            shift
+            [[ $# -eq 0 ]] && echo "Missing value" && usage && exit 1
+            VALUESET=$1
+            ;;
+        -inc|+)
+            shift
+            [[ $# -eq 0 ]] && echo "Missing value" && usage && exit 1
+            VALUEINC=$(( $VALUEINC + $1 ))
+            ;;
+        -dec|-)
+            shift
+            [[ $# -eq 0 ]] && echo "Missing value" && usage && exit 1
+            VALUEINC=$(( $VALUEINC - $1 ))
+            ;;
+        -get) VALUEGET=1 ;;
+        -time)
+            shift
+            [[ $# -eq 0 ]] && echo "Missing value" && usage && exit 1
+            TIME=$1
+            ;;
+        -steps)
+            shift
+            [[ $# -eq 0 ]] && echo "Missing value" && usage && exit 1
+            STEPS=$1
+            ;;
+        -help|-h)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Unknown command"
+            usage
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if [ ! -d "/sys/class/backlight/${DISPLAY}" ]
+then
+    echo -e "Invalid display" $DISPLAY
+    exit 1
+fi
+
+BRIGHTNESS=/sys/class/backlight/${DISPLAY}/brightness
+
+if [ ! -f "${BRIGHTNESS}" ]
+then
+    echo -e "The display don't have a backlight property"
+    exit 1
+fi
+
+TIME=${TIME-200}
+STEPS=${STEPS-20}
+MAXVALUE=$( cat /sys/class/backlight/${DISPLAY}/max_brightness )
+MINVALUE=1
+OLDVALUE=$( cat "${BRIGHTNESS}" )
+NEWVALUE=$(( ${VALUESET-OLDVALUE} + ${VALUEINC-0} ))
+[ ${NEWVALUE} -gt ${MAXVALUE} ] && NEWVALUE=${MAXVALUE}
+[ ${NEWVALUE} -lt ${MINVALUE} ] && NEWVALUE=${MINVALUE}
+
+I=1
+while [ $I -le ${STEPS} ]
+do
+    echo $(( $I * (${NEWVALUE}-${OLDVALUE}) / ${STEPS} + ${OLDVALUE} )) > "${BRIGHTNESS}"
+    echo "scale=3; ${TIME} / ${STEPS} / 1000" | bc | xargs sleep
+    I=$(( $I + 1 ))
+done
+
+(( ${VALUEGET} )) && echo $( cat "${BRIGHTNESS}" )
+
+exit 0
+
