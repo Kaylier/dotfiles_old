@@ -170,8 +170,8 @@ workspace $workspace6 output LVDS
 workspace $workspace7 output LVDS
 workspace $workspace8 output LVDS
 workspace $workspace9 output LVDS
-workspace $workspace10 output HDMI1
-#workspace $workspace10 output VGA1
+workspace $workspace10 output HDMI-0
+#workspace $workspace10 output VGA-0
 # }}}
 # switch to workspace {{{
 # Short moves
