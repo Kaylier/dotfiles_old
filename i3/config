@@ -165,11 +165,11 @@ workspace $workspace1 output LVDS
 workspace $workspace2 output LVDS
 workspace $workspace3 output LVDS
 workspace $workspace4 output LVDS
-workspace $workspace5 output LVDS
-workspace $workspace6 output LVDS
-workspace $workspace7 output LVDS
-workspace $workspace8 output LVDS
-workspace $workspace9 output LVDS
+workspace $workspace5 output VGA-0
+workspace $workspace6 output VGA-0
+workspace $workspace7 output VGA-0
+workspace $workspace8 output VGA-0
+workspace $workspace9 output VGA-0
 workspace $workspace10 output HDMI-0
 #workspace $workspace10 output VGA-0
 # }}}
@@ -285,9 +285,9 @@ bindsym $mod+r mode "resize"
 # Statusbar {{{
 
 bar {
-    #output VGA0
-    #output HDMI0
     output LVDS
+    output VGA-0
+    #output HDMI-0
     #status_command i3status
     status_command $HOME/.config/i3/conky-i3bar.sh
     tray_output none
@@ -337,7 +337,7 @@ for_window [class="qjackctl"] floating enable
 
 exec_always numlockx on
 
-exec_always feh --bg-fill ~/.wallpaper.jpg
+exec_always feh --no-fehbg --bg-fill ~/.wallpaper.jpg
 
 exec urxvt -name scratchpad
 
