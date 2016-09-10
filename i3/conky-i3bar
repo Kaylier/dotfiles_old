@@ -10,9 +10,9 @@ conky.config = {
     if_up_strictness = "address",
     use_spacer = "left",
     override_utf8_locale = false,
-    cpu_avg_samples = 2, 
-    mpd_host = "192.168.1.2", 
-    mpd_port = "6600"
+    mpd_host = "127.1.1.1", 
+    mpd_port = "6600", 
+    cpu_avg_samples = 2
 }
 
 conky.text = [[
