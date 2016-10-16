@@ -138,6 +138,7 @@ set foldclose= " When set to all, auto close when the cursor moves out
 set foldcolumn& " When 1, show a column on the side showing folds
 set foldopen& " Commands for which folds will be opened
 nnoremap <space> za
+nnoremap <C-space> zA
 set foldtext& " Expression displayed for closed folds
 
 "set concealcursor=nvc " Conceal the text in normal, visual and command modes
