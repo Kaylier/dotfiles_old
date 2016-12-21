@@ -157,8 +157,8 @@ set $workspace5 "5:ŧ"
 set $workspace6 "6:¥"
 set $workspace7 "7:Ŧ"
 set $workspace8 "8:¢"
-set $workspace9 "9:ı"
-set $workspace10 "10:Extern"
+set $workspace9 "9:Extern0"
+set $workspace10 "10:Extern1"
 # }}}
 # Screen {{{
 workspace $workspace1 output LVDS
@@ -169,9 +169,8 @@ workspace $workspace5 output VGA-0
 workspace $workspace6 output VGA-0
 workspace $workspace7 output VGA-0
 workspace $workspace8 output VGA-0
-workspace $workspace9 output VGA-0
+workspace $workspace9 output HDMI-0
 workspace $workspace10 output HDMI-0
-#workspace $workspace10 output VGA-0
 # }}}
 # switch to workspace {{{
 # Short moves
