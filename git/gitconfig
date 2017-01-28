@@ -1,26 +1,78 @@
 [alias]
-    # View customized log of the latest 10 commits
-    l = log -n 10 --graph
-    
-	# View the short format of status
-    s = status -sb -uall
+    # Add
+    aa = add --all
+    ap = add --patch
 
+    # Branches
+    b = branch --all -vv
+    bc = checkout
+
+    # Commit
+    c = commit
+    ca = commit --amend
+    cc = commit --all
+    cca = commit --all --amend
+	cps = !"git commit -a && git push; git status"
+
+    # Diff
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD --; git --no-pager diff --patch-with-stat"
-
+	dc = diff --cached
 	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
 	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD --; d"
 
-	# Commit, Push and show Status
-	cps = !"git commit -a && git push; git status"
+    # Fetch
+    f = fetch --all
+
+    # Log
+    l = log -n 10 --graph
+    ll = shortlog --summary --email --numbered
+    
+    # List
+    ls = ls-files
+    lsf = !"git ls-files | grep -i"
+
+    # Merge
+    m = merge
+    ma = merge --abort
+
+    # Push
+    ps = push
+    pa = push --all
+
+    # Pull
+    pl = pull
+
+    # Rebase
+    r = rebase
+    ra = rebase --abort
+    rc = rebase --continue
+    ri = rebase --interactive
+    rs = rebase --skip
+
+	# Status
+    s = status -sb -uall
+
+    # Archive
+    tar = archive --prefix=repo/ HEAD --output
+
+    yolo = !"git commit -am \"$(curl -s whatthecommit.com/index.txt)\""
 
 [color]
     ui = auto
 
 [color "branch"]
-    current = yellow reverse
+    current = yellow bold reverse
+    upstream = green
     local = yellow
     remote = green
+
+[color "diff"]
+    meta = yellow bold
+
+[diff]
+    renames = true
+    tool = vimdiff
 
 [format]
 	pretty = format:"%C(auto)%h %C(blue)%ci %C(reset)%cn <%cE>%n       %s"
@@ -33,6 +85,10 @@
 [help]
 	autocorrect = 1
 
+[rerere]
+    enable = true
+    autoUpdate = true
+
 [merge]
 	summary = true
 	verbosity = 1
@@ -41,3 +97,8 @@
 [push]
 	default = simple
 
+[pull]
+    rebase = preserve
+
+[rebase]
+    stat = true
