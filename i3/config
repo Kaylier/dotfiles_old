@@ -139,24 +139,14 @@ bindsym $mod+z focus child
 # Workspaces {{{ 
 
 # Names {{{ 
-#set $workspace1 "1:♫"
-#set $workspace2 "2:@"
-#set $workspace3 "3:☭"
-#set $workspace4 "4:⚙"
-#set $workspace5 "5:♂"
-#set $workspace6 "6:♃"
-#set $workspace7 "7:♄"
-#set $workspace8 "8:⛢"
-#set $workspace9 "9:♆"
-#set $workspace10 "10:Extern"
-set $workspace1 "1:♪"
-set $workspace2 "2:@"
-set $workspace3 "3:¢"
-set $workspace4 "4:ł"
-set $workspace5 "5:ŧ"
-set $workspace6 "6:¥"
-set $workspace7 "7:Ŧ"
-set $workspace8 "8:¢"
+set $workspace1 "1:☿/♫"
+set $workspace2 "2:♀/@"
+set $workspace3 "3:♁/☭"
+set $workspace4 "4:♂/⚙"
+set $workspace5 "5:♃"
+set $workspace6 "6:♄"
+set $workspace7 "7:⛢"
+set $workspace8 "8:♆"
 set $workspace9 "9:Extern0"
 set $workspace10 "10:Extern1"
 # }}}
@@ -225,7 +215,7 @@ bindsym $mod+Shift+agrave    move container to workspace $workspace10; workspace
 # Modes {{{
 
 # System {{{
-set $mode_system "System : (Return) Shutdown ; (r) Reboot ; (l) Lock"
+set $mode_system "System | ↵ : Shutdown | r : Reboot | l : Lock"
 mode $mode_system {
     bindsym Return exec "shutdown now"
     bindsym r exec "reboot"
