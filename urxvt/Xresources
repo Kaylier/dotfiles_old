@@ -88,7 +88,7 @@ urxvt.mouseWheelScrollPage: false
 ! URLs
 urxvt.perl-ext-common: default,matcher
 urxvt.url-launcher: /usr/bin/xdg-open
-urxvt.matcher.button: 2
+urxvt.matcher.button: 1
 !urxvt.matcher.rend.0: Uline Bold fg5
 
 !urxvt.keysym.sym:                     keysym
