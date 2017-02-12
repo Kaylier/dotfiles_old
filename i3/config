@@ -58,6 +58,7 @@ client.urgent           $bord2      $back2      $font2      $indi2
 # Management {{{
 bindsym $mod+Return     exec dmenu_run
 bindsym $mod+t          exec i3-sensible-terminal
+bindsym XF86Display     exec /etc/udev/monitor-hotplug.sh
 # }}}
 # Audio controls {{{
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
