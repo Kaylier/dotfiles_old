@@ -59,6 +59,8 @@ set scrolloff=7 " Always keep n lines after or before when side scrolling
 "set sidescrolloff=7 " Always keep n lines after or before when side scrolling
 set display=uhex " Change the way the text is displayed
 
+" Prevent from going to Ex-mode
+nnoremap Q <nop>
 set backspace=indent,eol,start " The normal behaviour of backspace
 set esckeys " Authorize keys beginning with <Esc> in Insertion mode
 "set virtualedit=onemore " Allow the cursor just past the end of the line
@@ -123,8 +125,26 @@ endfunction
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 setlocal spelllang=en,fr
 "setlocal spell
+autocmd FileType gitcommit setlocal spell
 set spellfile& " List of word list files
 set infercase " Automatic case in completion
+
+" }}}
+" Snippet {{{
+
+" C/C++
+inoremap todo<Space><Space> <Esc>I// TODO: <Esc>A
+inoremap main<Space><Space> <Esc>Oint main(int argc, const char *argv[])<CR>{<CR>}<Esc>O
+inoremap if<Space><Space> <Esc>Iif (<Esc>A) {<CR>}<Esc>O
+inoremap ife<Space><Space> <Esc>Iif (<Esc>A) {<CR>} else {<CR>}<Esc>kO
+inoremap while<Space><Space> <Esc>Iwhile (<Esc>A) {<CR>}<Esc>O
+inoremap do<Space><Space> <Esc>Ido {<CR>} while (<Esc>A);<Esc>O
+inoremap for<Space><Space> <Esc>Ifor (<Esc>A) {<CR>}<Esc>O
+inoremap fori<Space><Space> <Esc>Ifor (int i = 0; i < <Esc>A; i++) {<CR>}<Esc>O
+inoremap forr<Space><Space> <Esc>Ifor (int i = <Esc>Ai; i != 0; i--) {<CR>}<Esc>O
+inoremap iter<Space><Space> <Esc>Ifor (auto&& item : <Esc>A) {<CR>}<Esc>O
+inoremap struct<Space><Space> <Esc>Iclass <Esc>A {<CR>}<Esc>O
+inoremap class<Space><Space> <Esc>Iclass <Esc>A {<CR><CR>public:<CR>}<Esc>O
 
 " }}}
 " Repliement {{{
@@ -192,7 +212,7 @@ nmap <C-c>      :q<Enter>
 imap <C-c>      <Esc>:q<Enter>
 
 map <F5>        :set background=light<Enter>
-nmap <F6>       :set background=dark<Enter>
+map <F6>        :set background=dark<Enter>
 
 function! ToggleNumber()
     if (&relativenumber == 1)
@@ -203,6 +223,9 @@ function! ToggleNumber()
     endif
 endfunc
 nmap , :.call ToggleNumber()<cr>
+
+" Switch off the current search
+nnoremap µ :nohlsearch<Enter>
 
 
 " }}}
@@ -256,6 +279,9 @@ set number " Show the line number
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%>80v.\+/
 
+" Marque comme une erreur les espaces en fin de ligne
+match ErrorMsg '\s\+$'
+
 set showmatch " When a bracket is inserted, jump to the matching one
 set matchpairs=(:),{:},[:],<:> " List of pairs to match
 "set maxfuncdepth& " Max depth of function calls
@@ -263,7 +289,7 @@ set matchtime=3 " ... during this time (tenths of a second)
 
 set wrap " Wrap the line when it's longer than the width of the window
 set wrapscan " Search wrap around the end of the file
-set showbreak=↳ " See this char when wrapping text
+set showbreak=↪ " See this char when wrapping text
 set whichwrap=b,s,<,>,[,]
 
 "colorscheme koehler

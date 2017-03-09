@@ -4,11 +4,13 @@
 class /*TODO*/
 {
 public:
-    /*TODO*/();
-    /*TODO*/(const /*TODO*/& x);
+    /*TODO*/() = default;
+    /*TODO*/(const /*TODO*/& x) = default;
+    /*TODO*/(/*TODO*/&& x) = default;
     ~/*TODO*/();
 
-    /*TODO*/& operator=(const /*TODO*/& x);
+    /*TODO*/& operator=(/*TODO*/ x) noexcept;
+    friend void swap(/*TODO*/& first, /*TODO*/& second);
     
 protected:
     
