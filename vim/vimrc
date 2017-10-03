@@ -60,11 +60,11 @@ set scrolloff=7 " Always keep n lines after or before when side scrolling
 set display=uhex " Change the way the text is displayed
 
 " Prevent from going to Ex-mode
-nnoremap Q <nop>
+nnoremap Q gq
 set backspace=indent,eol,start " The normal behaviour of backspace
 set esckeys " Authorize keys beginning with <Esc> in Insertion mode
 "set virtualedit=onemore " Allow the cursor just past the end of the line
-set selectmode=cmd,mouse " Active le mode Selection avec la souris
+set selectmode=mouse " Active le mode Selection avec la souris
 set selection=inclusive " Selection behavior
 
 set allowrevins " Allow CTRL-_ in Insert and Command-line mode
@@ -125,7 +125,10 @@ endfunction
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 setlocal spelllang=en,fr
 "setlocal spell
-autocmd FileType gitcommit setlocal spell
+augroup spell
+    autocmd!
+    autocmd FileType gitcommit setlocal spell
+augroup END
 set spellfile& " List of word list files
 set infercase " Automatic case in completion
 
@@ -140,7 +143,7 @@ inoremap ife<Space><Space> <Esc>Iif (<Esc>A) {<CR>} else {<CR>}<Esc>kO
 inoremap while<Space><Space> <Esc>Iwhile (<Esc>A) {<CR>}<Esc>O
 inoremap do<Space><Space> <Esc>Ido {<CR>} while (<Esc>A);<Esc>O
 inoremap for<Space><Space> <Esc>Ifor (<Esc>A) {<CR>}<Esc>O
-inoremap fori<Space><Space> <Esc>Ifor (int i = 0; i < <Esc>A; i++) {<CR>}<Esc>O
+inoremap fori<Space><Space> <Esc>Ifor (size_t i = 0; i < <Esc>A; i++) {<CR>}<Esc>O
 inoremap forr<Space><Space> <Esc>Ifor (int i = <Esc>Ai; i != 0; i--) {<CR>}<Esc>O
 inoremap iter<Space><Space> <Esc>Ifor (auto&& item : <Esc>A) {<CR>}<Esc>O
 inoremap struct<Space><Space> <Esc>Iclass <Esc>A {<CR>}<Esc>O
@@ -160,6 +163,12 @@ set foldopen& " Commands for which folds will be opened
 nnoremap <space> za
 nnoremap <C-space> zA
 set foldtext& " Expression displayed for closed folds
+augroup fold
+    " Don't screw up folds when inserting text that might affect them, until
+	" leaving insert mode. Foldmethod is local to the window.
+	autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
+	autocmd InsertLeave * let &l:foldmethod=w:last_fdm
+augroup END
 
 "set concealcursor=nvc " Conceal the text in normal, visual and command modes
 "set conceallevel=1
@@ -167,7 +176,7 @@ set foldtext& " Expression displayed for closed folds
 " }}}
 " Optimisations {{{
 
-set shortmess+=I " No intro when starting Vim
+set shortmess=filmnrxoOtTI " No intro when starting Vim
 set ttyfast " Faster redraw
 set lazyredraw " Redraw only when we need to
 
@@ -190,17 +199,6 @@ set remap " Allow recursive mappings
 nnoremap <Enter> i<Enter>
 " Escape with kj
 inoremap kj     <Esc>
-
-" Increment (<C-a> is used for an other purpose)
-nnoremap <C-w>  <C-a>
-" Go to the beginning of the line
-nnoremap <C-a>  ^
-" Go at the end of the line
-nnoremap <C-e>  $
-" Go to the beginning of the line in Insert mode
-inoremap <C-a>  <Esc>^i
-" Go at the end of the line in Insert mode
-inoremap <C-e>  <Esc>$a
 
 " Enregistre avec les droits root
 command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
@@ -277,10 +275,11 @@ set number " Show the line number
 
 " Surligne en rouge les lignes trop longues
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%>80v.\+/
+match OverLength '\%>160v.\+'
 
 " Marque comme une erreur les espaces en fin de ligne
-match ErrorMsg '\s\+$'
+highlight EOLSpaces ctermbg=red ctermfg=white guibg=#592929
+match EOLSpaces '\s\+$'
 
 set showmatch " When a bracket is inserted, jump to the matching one
 set matchpairs=(:),{:},[:],<:> " List of pairs to match
@@ -305,6 +304,7 @@ set modelines=10 " Number of lines that is checked from the end of the file
 autocmd FileType latex inoremap j gj
 autocmd FileType latex inoremap k gk
 autocmd BufEnter Makefile setlocal noexpandtab
+autocmd FileType python set foldmethod=indent
 
 " }}}
 

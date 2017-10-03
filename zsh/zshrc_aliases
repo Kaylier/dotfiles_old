@@ -5,7 +5,7 @@ alias du='du -ch'
 alias grep='grep -TE --color=auto'
 alias jobs='jobs -l'
 alias less='less -iNMz-10'
-alias ls='ls -bhF --color=auto'
+alias ls='ls -hF --color=auto'
 alias lsblk='lsblk -o MODE,OWNER,GROUP,NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT'
 alias mkdir='mkdir -pv'
 alias ping='ping -Abc 8 -D'
@@ -42,6 +42,7 @@ alias meminfo='free -hlt'
 alias mounted='mount | column -t'
 alias no='yes n'
 alias path='echo -e ${PATH//:/\\n}'
+alias psg='ps -f | head -n 1 && ps -ef | grep'
 alias timestamp='date "+%s"'
 
 function lcd() { cd $@ && ls ; }
@@ -64,6 +65,22 @@ else
 fi
 
 # }}}
+# Auto-launcher {{{
+
+alias -s c=compile
+alias -s cpp=compile
+
+alias -s avi=vlc
+alias -s flac=vlc
+alias -s mkv=vlc
+alias -s mp3=vlc
+alias -s ogg=vlc
+
+alias -s pdf=evince
+
+alias -s html=firefox
+
+# }}}
 # Safety aliases {{{
 
 alias chgrp='chgrp --preserve-root'
@@ -84,6 +101,7 @@ alias pull='git pull'
 alias push='git push'
 alias commit='git commit'
 alias fetch='git fetch; git status'
+alias lslbk='lsblk'
 alias status='git s'
 
 # }}} 

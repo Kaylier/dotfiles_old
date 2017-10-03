@@ -5,7 +5,7 @@ if [[ -d "${TEMPLATE_DIR}" ]]
 then
     function template()
     {
-	    [[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
+	    [[ $1 ]] || { echo "Missing operand" >&2; return 1; }
 
 	    if [[ -e $1 ]]
         then
@@ -14,7 +14,11 @@ then
             read
 	        ${EDITOR} "$1";
 	    else
-            local TEMPLATE_FILE=${TEMPLATE_DIR}/${1/*.}
+            local TEMPLATE_FILE=${TEMPLATE_DIR}/${1}
+            if [ ! -f ${TEMPLATE_FILE} ]
+            then
+                local TEMPLATE_FILE=${TEMPLATE_DIR}/${1/*.}
+            fi
             if [ -f "${TEMPLATE_FILE}" ]
             then
                 if [[ ${EDITOR} == *vim* ]]
@@ -43,7 +47,7 @@ function compile()
 	[[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
 	[[ -r $1 ]] || { printf "File %s is not readable" "$1" >&2; return 1; }
 
-	local OUTPUT_PATH=${TMPDIR:-/tmp}/${1##*/};
+	local OUTPUT_PATH=${TMPDIR:-/tmp}/${1##*/}.elf;
 	case $1 in
 		*.cpp)	g++ "$1" -o "$OUTPUT_PATH" && "$OUTPUT_PATH" ;;
 		*.c)	gcc "$1" -o "$OUTPUT_PATH" && "$OUTPUT_PATH" ;;
@@ -97,8 +101,8 @@ function swap()
     local TMPFILE=tmp.$$
 
     [ $# -ne 2 ] && echo "swap: 2 arguments needed" && return 1
-    [ ! -e $1 ] && echo "swap: $1 does not exist" && return 1
-    [ ! -e $2 ] && echo "swap: $2 does not exist" && return 1
+    [ ! -e $1 ] && echo "swap: $1 does not exist" && return 2
+    [ ! -e $2 ] && echo "swap: $2 does not exist" && return 2
 
     mv "$1" $TMPFILE
     mv "$2" "$1"
@@ -114,6 +118,17 @@ function repeat()
     for ((i=1 ; i <= max ; i++)); do
         eval "$@";
     done
+}
+# }}}
+# rand {{{
+function rand()
+{
+    case $# in
+        0) echo ${RANDOM} ;;
+        1) echo $((RANDOM % $1)) ;;
+        2) echo $((RANDOM % ($2 + 1 - $1) + $1)) ;;
+        *) shift $((RANDOM % $#)) && echo $1;;
+    esac
 }
 # }}}
 # ask {{{

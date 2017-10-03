@@ -339,7 +339,7 @@ for_window [class="qjackctl"] floating enable
 
 exec_always numlockx on
 exec_always /etc/udev/monitor-hotplug.sh
-exec_always feh --no-fehbg --bg-fill ~/.wallpaper.jpg
+exec_always feh --no-fehbg --bg-scale ~/.wallpaper.jpg
 
 exec urxvt -name scratchpad
 
