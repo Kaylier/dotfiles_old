@@ -1,62 +1,59 @@
 
-*termName: xterm-256color
+*termName: rxvt-unicode-256color
 *locale: true
 
 ! Colors
 *depth:              32
-*foreground:         #DDDDDD
-*background:         [80]#000000
+*foreground:         #ffffff
+*background:         [70]#000000
 ! Black + DarkGrey
 *color0:             #000000
-*color8:             #555753
+*color8:             #556677
 ! DarkRed + Red
-*color1:             #ff6565
-*color9:             #ff8d8d
+*color1:             #ee6666
+*color9:             #ff7777
 ! DarkGreen + Green
-*color2:             #93d44f
-*color10:            #c8e7a8
+*color2:             #aadd77
+*color10:            #bbee88
 ! DarkYellow + Yellow
-*color3:             #eab93d
-*color11:            #ffc123
+*color3:             #eebb55
+*color11:            #ffcc66
 ! DarkBlue + Blue
-*color4:             #204a87
-*color12:            #3465a4
+*color4:             #6699ee
+*color12:            #77aaff
 ! DarkMagenta + Magenta
-*color5:             #ce5c00
-*color13:            #f57900
+*color5:             #bb88dd
+*color13:            #cc99ee
 ! DarkCyan + Cyan
-*color6:             #89b6e2
-*color14:            #46a4ff
+*color6:             #77ccee
+*color14:            #88ddff
 ! LightGrey + White
-*color7:             #cccccc
+*color7:             #ddeeff
 *color15:            #ffffff
 !*colorBD:            color
 !*colorIT:            color
 !*colorUL:            color
 !*colorRV:            color
-*underlineColor:     #AAAAAA
+*underlineColor:     #444444
 !*highlightColor:     color
 !*highlightTextColor: color
 !*cursorColor:        color
 !*cursorColor2:       color
-*fading:             20
+*fading:             15
 *fadeColor:          #111111
 
 urxvt.transparent: true
-urxvt.tintColor:   #ddeeff
-urxvt.shading:     10
+urxvt.tintColor:   #00eeff
+urxvt.shading:     15
 urxvt.blurRadius:  20x20
 
 ! Fonts
-*font:            xft:DroidSansMono:style=regular:size=10,xft:Inconsolata:size=12
-*boldFont:        xft:DroidSans:style=bold:size=10,xft:Inconsolata:style=bold:size=12
-*italicFont:      xft:DroidSerif:style=Italic:size=10
-*boldItalicFont:  xft:DroidSerif:style=BoldItalic:size=10
+*font:            xft:FiraMono:style=regular:size=11,xft:Inconsolata:size=12
+*boldFont:        xft:FiraMono:style=bold:size=11,xft:Inconsolata:style=bold:size=12
+*italicFont:      xft:FiraMono:style=Italic:size=11
+*boldItalicFont:  xft:FiraMono:style=BoldItalic:size=11
 *intensityStyles: true
 *letterSpace:     0
-
-urxvt.resize-font.smaller: C-Minus
-urxvt.resize-font.bigger:  C-Plus
 
 ! Window behaviour
 urxvt.urgentOnBell: true
@@ -113,7 +110,7 @@ urxvt.thickness: 5
 urxvt.scrollTtyOutput: false
 urxvt.scrollTtyKeypress: true
 urxvt.scrollWithBuffer: true
-urxvt.scrollColor: #777777
+urxvt.scrollColor: #444444
 urxvt.troughColor: #ff0000
 urxvt.borderColor: #111111
 
