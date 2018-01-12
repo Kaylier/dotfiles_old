@@ -274,8 +274,8 @@ set number " Show the line number
 "set cursorcolumn " Highlight the cursor column
 
 " Surligne en rouge les lignes trop longues
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength '\%>160v.\+'
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength '\%>160v.\+'
 
 " Marque comme une erreur les espaces en fin de ligne
 highlight EOLSpaces ctermbg=red ctermfg=white guibg=#592929
