@@ -8,7 +8,7 @@ set $mod Mod4
 
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # Select the font
-font pango:Droid Sans Bold 10
+font pango:Roboto Bold 10
 # Modifier to activate mouse windows moving
 floating_modifier $mod
 # Choose orientation of initial splitting
@@ -22,28 +22,28 @@ new_float normal
 floating_minimum_size 80 x 50
 #bindsym $mod+r              reload
 bindsym $mod+Shift+r        restart
-bindsym Ctrl+Alt+BackSpace  exit
+bindsym Ctrl+Alt+Backspace  exit
 
 # }}}
 # Colors {{{
 
 # active
-set $font0 #EEEEEE
-set $back0 #2C2C2C
-set $bord0 #00607F
+set $font0 #cccccc
+set $back0 #222222
+set $bord0 #007770
 set $indi0 #004166
 # inactive
 set $font1 #888888
-set $back1 #0C0C0C
-set $bord1 #2C2C2C
-set $indi1 #0C0C0C
+set $back1 #000000
+set $bord1 #333c44
+set $indi1 #0c0c0c
 # urgent
-set $font2 #000000
-set $back2 #875FFF
-set $bord2 #A97FFF
-set $indi2 #875FFF
+set $font2 #bb9966
+set $back2 #007770
+set $bord2 #007770
+set $indi2 #875fff
 # theme color
-set $font3 #00C1FF
+set $font3 #00eedd
 
 # Color settings        Border      Background  Font        Indicator
 client.focused          $bord0      $back0      $font0      $indi0
@@ -58,19 +58,18 @@ client.urgent           $bord2      $back2      $font2      $indi2
 # Management {{{
 bindsym $mod+Return     exec dmenu_run
 bindsym $mod+t          exec i3-sensible-terminal
-bindsym XF86Display     exec /etc/udev/monitor-hotplug.sh
 # }}}
 # Audio controls {{{
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
 bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
-bindsym Ctrl+space exec --no-startup-id mpc toggle
-bindsym Ctrl+Right exec --no-startup-id mpc next
-bindsym Ctrl+Left exec --no-startup-id mpc prev
+bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+bindsym XF86AudioNext exec --no-startup-id mpc next
+bindsym XF86AudioPrev exec --no-startup-id mpc prev
 # }}}
 # Sreen brightness controls {{{
-bindsym XF86MonBrightnessUp exec --no-startup-id /bin/zsh -c 'sudo xbacklightamd -inc 15'
-bindsym XF86MonBrightnessDown exec --no-startup-id /bin/zsh -c 'sudo xbacklightamd -dec 15'
+bindsym XF86MonBrightnessUp exec --no-startup-id /bin/zsh -c 'xbacklightamd -inc 150'
+bindsym XF86MonBrightnessDown exec --no-startup-id /bin/zsh -c 'xbacklightamd -dec 150'
 # }}}
 # Scratchpad {{{
 bindsym $mod+twosuperior move scratchpad
@@ -78,7 +77,7 @@ bindsym twosuperior scratchpad show
 # }}}
 
 # }}}
-# Window management shortcuts {{{ 
+# Window management shortcuts {{{
 
 bindsym $mod+q kill
 
@@ -137,31 +136,35 @@ bindsym $mod+z focus child
 # }}}
 
 # }}}
-# Workspaces {{{ 
+# Workspaces {{{
 
-# Names {{{ 
-set $workspace1 "1:☿/♫"
-set $workspace2 "2:♀/@"
-set $workspace3 "3:♁/☭"
-set $workspace4 "4:♂/⚙"
+# Names {{{
+set $workspace1 "1:☿"
+set $workspace2 "2:♀"
+set $workspace3 "3:♁"
+set $workspace4 "4:♂"
 set $workspace5 "5:♃"
 set $workspace6 "6:♄"
-set $workspace7 "7:⛢"
+set $workspace7 "7:♅"
 set $workspace8 "8:♆"
 set $workspace9 "9:Extern0"
 set $workspace10 "10:Extern1"
 # }}}
 # Screen {{{
-workspace $workspace1 output LVDS
-workspace $workspace2 output LVDS
-workspace $workspace3 output LVDS
-workspace $workspace4 output LVDS
-workspace $workspace5 output VGA-0
-workspace $workspace6 output VGA-0
-workspace $workspace7 output VGA-0
-workspace $workspace8 output VGA-0
-workspace $workspace9 output HDMI-0
-workspace $workspace10 output HDMI-0
+set $screen0 eDP-1
+set $screen1 HDMI-1
+set $screen2 HDMI-1
+
+workspace $workspace1 output $screen0
+workspace $workspace2 output $screen0
+workspace $workspace3 output $screen0
+workspace $workspace4 output $screen0
+workspace $workspace5 output $screen1
+workspace $workspace6 output $screen1
+workspace $workspace7 output $screen1
+workspace $workspace8 output $screen1
+workspace $workspace9 output $screen2
+workspace $workspace10 output $screen2
 # }}}
 # switch to workspace {{{
 # Short moves
@@ -220,8 +223,8 @@ set $mode_system "System | ↵ : Shutdown | r : Reboot | l : Lock"
 mode $mode_system {
     bindsym Return exec "shutdown now"
     bindsym r exec "reboot"
-    #bindsym l exec i3lock --color=000000 -f -d; mode "default"
-    bindsym l exec $HOME/.config/i3/i3-lock-wrapper -l -f; mode "default"
+    bindsym l exec i3lock --color=000000 -f -d; mode "default"
+    #bindsym l exec $HOME/.config/i3/i3-lock-wrapper -l -f; mode "default"
 
     # back to normal
     bindsym BackSpace mode "default"
@@ -233,7 +236,7 @@ bindsym $mod+BackSpace mode $mode_system
 # Launcher {{{
 set $mode_launcher "Launch | < : Music | w : Internet | x : Work | c : Compilation"
 mode $mode_launcher {
-    bindsym less workspace $workspace1; exec i3-msg 'append_layout ~/.config/i3/workspace1.json'; mode "default"
+    #bindsym less workspace $workspace1; exec i3-msg 'append_layout ~/.config/i3/workspace1.json'; mode "default"
     bindsym w workspace $workspace2; exec i3-msg 'append_layout ~/.config/i3/workspace2.json'; exec firefox; exec thunderbird; mode "default"
     bindsym x workspace $workspace3; exec i3-msg 'append_layout ~/.config/i3/workspace3.json'; exec urxvt; exec urxvt; exec urxvt; exec urxvt; mode "default"
     bindsym c workspace $workspace4; exec i3-msg 'append_layout ~/.config/i3/workspace4.json'; exec urxvt; exec urxvt; exec urxvt; exec urxvt; mode "default"
@@ -283,16 +286,17 @@ bindsym $mod+r mode "resize"
 # Statusbar {{{
 
 bar {
-    output LVDS
-    output VGA-0
-    #output HDMI-0
+    output $screen0
+    output $screen1
+    #output $screen2
     #status_command i3status
-    status_command $HOME/.config/i3/conky-i3bar.sh
+    status_command $HOME/.config/i3/i3bar.py
     tray_output none
     modifier Mod4
     position top
     strip_workspace_numbers yes
 
+    font pango:Roboto Bold, Awesome Bold 9
     colors {
         background $back1
         statusline $font3
@@ -304,7 +308,7 @@ bar {
         urgent_workspace   $bord2  $back2  $font2
         binding_mode       $bord0  $back0  $font0
     }
-	
+
     # Mouse bindings are annoying
     bindsym button4 exec :
     bindsym button5 exec :
@@ -313,7 +317,6 @@ bar {
 # }}}
 # Windows assignements {{{
 
-assign [class="qjackctl"] $workspace1
 assign [class="Firefox"] $workspace2
 assign [class="Thunderbird"] $workspace2
 assign [class="Deluge"] $workspace2
@@ -332,18 +335,17 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="dialog"] floating enable
 for_window [window_role="menu"] floating enable
 for_window [window_role="Preferences"] floating enable
-for_window [class="qjackctl"] floating enable
 
 # }}}
 # Startup {{{
 
-exec_always numlockx on
-exec_always /etc/udev/monitor-hotplug.sh
-exec_always feh --no-fehbg --bg-scale ~/.wallpaper.jpg
+#exec_always /etc/udev/monitor-hotplug.sh
+exec_always feh --no-fehbg --bg-scale ~/.wallpaper.png
+exec --no-startup-id redshift
 
 exec urxvt -name scratchpad
 
-exec qjackctl
+#exec qjackctl
 
 exec_always sleep 3; amixer -c 0 set Headphone unmute 100%
 

@@ -162,7 +162,7 @@ file1=$(mktemp --tmpdir i3lock-wrapper-XXXXXXXXXX.png)
 file2=$(mktemp --tmpdir i3lock-wrapper-XXXXXXXXXX.png)
 
 scrot -z -d0 "$file1"
-convert "$file1" -blur 0x5 "$file2"
+convert "$file1" -blur 0x8 "$file2"
 rm "$file1" # Remove for security
 
 if [ $use_logo -eq 1 ]; then
