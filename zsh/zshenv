@@ -1,5 +1,5 @@
 
-export DOTFILES_DIR=/home/kaylier/.dotfiles
+export DOTFILES_DIR=${home}/.dotfiles
 
 export PATH=${PATH}:${DOTFILES_DIR}/bin
 
