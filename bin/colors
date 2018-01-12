@@ -1,0 +1,48 @@
+#! /usr/bin/python
+
+print()
+print("  ", end='')
+for color in range(0,8):
+    print("\x1b[48;5;{}m     ".format(color), end='')
+print("\x1b[0m    ", end='')
+for color in range(232,244):
+    print("\x1b[48;5;{}m   ".format(color), end='')
+print("\x1b[0m")
+
+print("  ", end='')
+for color in range(8,16):
+    print("\x1b[48;5;{}m     ".format(color), end='')
+print("\x1b[0m    ", end='')
+for color in range(244,256):
+    print("\x1b[48;5;{}m   ".format(color), end='')
+print("\x1b[0m")
+print()
+
+for red in range(0,6):
+    for green in range(0,6):
+        print("  ", end='')
+        for blue in range(0,6):
+            color = 16 + (red*36) + (green*6) + blue
+            print("\x1b[48;5;{}m  ".format(color), end='')
+        print("\x1b[0m", end='')
+    print()
+print()
+for green in range(0,6):
+    for blue in range(0,6):
+        print("  ", end='')
+        for red in range(0,6):
+            color = 16 + (red*36) + (green*6) + blue
+            print("\x1b[48;5;{}m  ".format(color), end='')
+        print("\x1b[0m", end='')
+    print()
+print()
+for blue in range(0,6):
+    for red in range(0,6):
+        print("  ", end='')
+        for green in range(0,6):
+            color = 16 + (red*36) + (green*6) + blue
+            print("\x1b[48;5;{}m  ".format(color), end='')
+        print("\x1b[0m", end='')
+    print()
+print()
+
