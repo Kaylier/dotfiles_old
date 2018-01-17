@@ -290,7 +290,7 @@ bar {
     output $screen1
     #output $screen2
     #status_command i3status
-    status_command $HOME/.config/i3/i3bar.py
+    status_command $HOME/.config/i3/i3bar
     tray_output none
     modifier Mod4
     position top
