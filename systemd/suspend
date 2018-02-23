@@ -9,7 +9,7 @@ Environment=DISPLAY=:0
 Environment=HOME=%h
 ExecStartPre=-/usr/bin/mpc pause
 #ExecStart=-/usr/bin/i3lock -ef --color=001a18 --image=/home/kaylier/.wallpaper_lock.png
-ExecStart=-${HOME}/.dotfiles/bin/i3lock-wrapper -lf
+ExecStart=-/home/kaylier/.dotfiles/bin/i3lock-wrapper -lf
 
 [Install]
 WantedBy=sleep.target

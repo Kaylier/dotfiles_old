@@ -38,9 +38,9 @@ set $back1 #000000
 set $bord1 #333c44
 set $indi1 #0c0c0c
 # urgent
-set $font2 #bb9966
-set $back2 #007770
-set $bord2 #007770
+set $font2 #004433
+set $back2 #bb9966
+set $bord2 #bb4433
 set $indi2 #875fff
 # theme color
 set $font3 #00eedd
