@@ -59,6 +59,16 @@ function compile()
 
 }
 # }}}
+# dotview {{{
+# Fast generate and view of a dot graph file
+function dotview()
+{
+	[[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
+	[[ -r $1 ]] || { printf "File %s is not readable" "$1" >&2; return 1; }
+	local OUTPUT_PATH=${TMPDIR:-/tmp}/${1##*/}.png;
+    dot "$1" -T png -o "$OUTPUT_PATH" && xdg-open "$OUTPUT_PATH"
+}
+# }}}
 # xtitle  {{{
 # Change the title of the terminal if possible
 function xtitle()
