@@ -38,6 +38,7 @@ def configure():
     diskio = DiskIO(2)
     ram = RAM()
     cpu = CPU()
+    gpu = GPU()
     fan = Fan()
     temperature = Temperature()
     brightness = Brightness()
@@ -56,6 +57,7 @@ def configure():
             (   2/dt, diskio),
             (   2/dt, ram),
             (   2/dt, cpu),
+            (   2/dt, gpu),
             (  10/dt, fan),
             (  10/dt, temperature),
             (  10/dt, brightness),
@@ -83,6 +85,7 @@ def configure():
             separator_small,
             cpu,
             separator_small,
+            gpu,
             fan,
             temperature,
             separator_large,
@@ -549,6 +552,23 @@ class CPU(Module):
             self.blocks[1].color = COLOR_TEXT_ON
         else:
             self.blocks[1].color = COLOR_TEXT_WARNING
+
+class GPU(Module):
+    def __init__(self):
+        self.blocks = [
+                Block(full_text='▒', short_text='', color=COLOR_LABEL_WARNING),
+                ]
+        self.update()
+    def update(self):
+        status, output = getstatusoutput('cat /proc/acpi/bbswitch')
+        if status != 0:
+            print(output, file=stderr)
+            self.blocks[0].full_text = ''
+            return
+        if output.find("ON") >= 0:
+            self.blocks[0].full_text = '▒'
+        else:
+            self.blocks[0].full_text = ''
 
 from psutil import sensors_fans
 class Fan(Module):

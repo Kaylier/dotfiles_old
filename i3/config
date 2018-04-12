@@ -151,9 +151,9 @@ set $workspace9 "9:Extern0"
 set $workspace10 "10:Extern1"
 # }}}
 # Screen {{{
-set $screen0 eDP-1
-set $screen1 HDMI-1
-set $screen2 HDMI-1
+set $screen0 eDP1
+set $screen1 HDMI1
+set $screen2 HDMI1
 
 workspace $workspace1 output $screen0
 workspace $workspace2 output $screen0
